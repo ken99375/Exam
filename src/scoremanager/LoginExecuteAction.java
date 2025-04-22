@@ -39,6 +39,13 @@ public class LoginExecuteAction extends Action {
 		if (teacher != null) {// 認証成功の場合
 			// セッション情報を取得
 			HttpSession session = req.getSession(true);
+
+//			Connection conn = (Connection) session.getAttribute("conn");
+//
+//			 // 接続情報を取得して表示
+//            DatabaseMetaData meta = conn.getMetaData();
+//            System.out.println("接続中のDB URL: " + meta.getURL());
+
 			// 認証済みフラグを立てる
 			teacher.setAuthenticated(true);
 			// セッションにログイン情報を保存

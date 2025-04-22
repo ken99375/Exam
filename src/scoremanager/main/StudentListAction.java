@@ -24,6 +24,13 @@ public class StudentListAction extends Action {
 		 HttpSession session = req.getSession();
 		 Teacher teacher = (Teacher)session.getAttribute("user");
 
+
+//			Connection conn = (Connection) session.getAttribute("conn");
+//
+//			 // 接続情報を取得して表示
+//           DatabaseMetaData meta = conn.getMetaData();
+//           System.out.println("接続中のDB URL: " + meta.getURL());
+
 		 String entYearStr = ""; // 入力された入学年度
 		 String classNum = ""; // 入力されたクラス番号
 		 String isAttendStr = ""; // 入力された在学フラグ
