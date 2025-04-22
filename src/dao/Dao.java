@@ -13,7 +13,7 @@ public class Dao {
     	// 接続していなければ実行する
         if (ds == null) {
             InitialContext ic = new InitialContext();
-            ds = (DataSource) ic.lookup("java:/comp/env/jdbc/exem");
+            ds = (DataSource) ic.lookup("java:/comp/env/jdbc/exam");
         }
         return ds.getConnection();
     }
