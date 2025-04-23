@@ -48,6 +48,12 @@ public class StudentListAction extends Action {
 		 classNum = req.getParameter("f2");
 		 isAttendStr = req.getParameter("f3");
 
+		 if (isAttendStr != null) {
+			    // 在学フラグを立てる
+			    isAttend = true;
+			    // リクエストに在学フラグをセット
+			    req.setAttribute("f3", isAttendStr);
+			}
 		 // ビジネスロジック 4
 		 if (entYearStr != null) {
 			 // 数値に変換
@@ -87,12 +93,7 @@ public class StudentListAction extends Action {
 		// リクエストにクラス番号をセット
 		 req.setAttribute("f2", classNum);
 		// 在学フラグが送信されていた場合
-		if (isAttendStr != null) {
-		    // 在学フラグを立てる
-		    isAttend = true;
-		    // リクエストに在学フラグをセット
-		    req.setAttribute("f3", isAttendStr);
-		}
+
 		// リクエストに学生リストをセット
 		req.setAttribute("students", students);
 		// リクエストにデータをセット。

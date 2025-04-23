@@ -13,7 +13,7 @@
                 <div class="mx-3 mb-3 py-2 rounded" id="registrationForm">
                     <div class="mb-3">
                         <label class="form-label" for="student-f1-select">入学年度</label>
-                        <select class="form-select" id="student-f1-select" name="f1">
+                        <select class="form-select" id="student-f1-select" name="entYear">
                             <option value="0">-------</option>
                             <c:forEach var="year" items="${ent_year_set}">
                                 <%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
@@ -24,17 +24,17 @@
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f2-select">学生番号</label>
-                        <input type="text" class=" form-control" placeholder="学生番号を入力してください" name="f2" required value="${no }">
+                        <input type="text" class=" form-control" placeholder="学生番号を入力してください" name="no" required value="${no }">
                     </div>
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f3-select">氏名</label>
-                        <input type="text" class=" form-control" placeholder="氏名を入力してください" name="f3" required value="${name }">
+                        <input type="text" class=" form-control" placeholder="氏名を入力してください" name="name" required value="${name }">
                     </div>
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f4-select">クラス</label>
-                        <select class="form-select" id="student-f4-select" name="f4">
+                        <select class="form-select" id="student-f4-select" name="classNum">
                             <option value="0">-------</option>
                             <c:forEach var="num" items="${class_num_set}">
                                 <%--現在のnumと選択されたf2が一致されていた場合selectedを追記 --%>
