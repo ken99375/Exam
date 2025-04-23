@@ -8,7 +8,7 @@
 <title></title>
 <script>
 //ログインページにリダイレクト
-location.href="Login.action";
+location.href="/teamD/scoremanager/Login.action";
 </script>
 </head>
 <body>
