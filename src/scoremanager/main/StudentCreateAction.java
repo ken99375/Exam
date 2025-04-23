@@ -24,13 +24,13 @@ public class StudentCreateAction extends Action{
 			LocalDate todayDate = LocalDate.now(); // LocaDateインスタンスを取得
 			int year = todayDate.getYear(); // 現在の年を取得
 			// リストを初期化
-			List<Integer> entYearList = new ArrayList<>();
+			List<Integer> ent_year_list = new ArrayList<>();
 			//  10年前から一年後まで年をリストに追加
 			for (int i = year -10; i < year + 11; i++){
-				entYearList.add(i);
+				ent_year_list.add(i);
 			}
 
-			req.setAttribute("entYearList", entYearList);
+			req.setAttribute("ent_year_set", ent_year_list);
 			// クラス番号一覧も取得
 		    ClassNumDao classNumDao = new ClassNumDao();
 		    List<String> classNums = classNumDao.filter(teacher.getSchool());
