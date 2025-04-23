@@ -7,7 +7,7 @@
 
 <c:param name="content">
     <section class="no">
-        <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報登録</h2>
+        <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報更新</h2>
 
         <div class="alert alert-success" role="alert">
             更新が完了しました。
