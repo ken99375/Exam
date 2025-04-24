@@ -2,15 +2,16 @@ package bean;
 
 public class Subject implements java.io.Serializable {
 	/* フィールド*/
-	private String school_cd;
+	private School school;
 	private String cd;
 	private String name;
 
-	public String getSchool_cd() {
-		return school_cd;
+
+	public School getSchool() {
+		return school;
 	}
-	public void setSchool_cd(String school_cd) {
-		this.school_cd = school_cd;
+	public void setSchool(School school) {
+		this.school = school;
 	}
 	public String getCd() {
 		return cd;

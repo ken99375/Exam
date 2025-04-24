@@ -34,6 +34,7 @@ public class StudentListAction extends Action {
 		 String entYearStr = ""; // 入力された入学年度
 		 String classNum = ""; // 入力されたクラス番号
 		 String isAttendStr = ""; // 入力された在学フラグ
+
 		 int entYear = 0; // 入学年度
 		 boolean isAttend = false; // 在学フラグ
 		 List<Student> students = null; // 学生リスト

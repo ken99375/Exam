@@ -1,3 +1,4 @@
+
 <%-- ログインJSP --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -17,6 +18,7 @@
 						// パスワード入力欄をテキストにする
 						$('#password-input').attr('type', 'text');
 					} else {
+
 						// チェックが外れている場合
 						// パスワード入力欄をパスワードにする
 						$('#password-input').attr('type', 'password');
