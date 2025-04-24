@@ -10,9 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import bean.Subject;
 import bean.Teacher;
-import bean.Test;
-import dao.ClassNumDao;
+import bean.TestListSubject;
 import dao.SubjectDao;
+import dao.TestListSubjectDao;
 import tool.Action;
 
 public class TestListSubjectExecuteAction extends Action {
@@ -32,6 +32,7 @@ public class TestListSubjectExecuteAction extends Action {
 		 String classNum = req.getParameter("f2");
 		 // 科目コード
 		 String subjectCd = req.getParameter("f3");
+
 
 		 // 入力チェック用エラーメッセージ
 		 int entYear = 0;
@@ -56,30 +57,16 @@ public class TestListSubjectExecuteAction extends Action {
 			 errors.put("f3","科目を選択してください");
 		 }
 
+		 SubjectDao sub_dao = new SubjectDao();
+		 Subject subject = sub_dao.get(subjectCd, teacher.getSchool());
 
+	 // entYear
+	// classNum
+	// subject
+		 TestListSubjectDao tl_sub_dao = new TestListSubjectDao();
+		 List<TestListSubject> tl_sub = tl_sub_dao.filter(entYear, classNum, subject, teacher.getSchool());
 
-	 // データ取得
-	 List<String> classList = new ClassNumDao().filter(teacher.getSchool());
-	 List<Subject> subjectList = new SubjectDao().filter(teacher.getSchool());
-
-	 // 成績データリストを初期化
-	 // エラー回避・JSP連携の安全性確保のため
-	 List<Test> testList = null;
-
-	 // 入力エラーがなければ検索実行
-	 // ただし、TestDaoがないためエラー
-	 if (errors.isEmpty()) {
-//		 TestDao testDao = new TestDao();
-//		 testList = testDao.filter(schoolCode, entYear, classNum, subjectCd);
-	 }
-
-	 // 入力値と検索結果をリクエストスコープ（JSPへ引き渡し）へセット
-	 req.setAttribute("f1", entYearStr);
-	 req.setAttribute("f2", classNum);
-	 req.setAttribute("f3", subjectCd);
-	 req.setAttribute("classList", classList);
-	 req.setAttribute("testList", testList);
-	 req.setAttribute("erroes", errors);
+		 req.setAttribute("tl_sub", tl_sub);
 
 	 } else {
 		 // ユーザ情報が取得できなかった場合
