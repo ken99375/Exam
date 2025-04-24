@@ -85,6 +85,7 @@ public class StudentCreateExecuteAction extends Action {
 			// boolean型の場合if(result)でおけ。
 			if (result){
 				req.getRequestDispatcher("student_create_done.jsp").forward(req, res);
+
 			} else {
 				req.getRequestDispatcher("/error.jsp").forward(req, res);
 			}
