@@ -29,7 +29,7 @@ public class TestListSubjectDao extends Dao{
 		}
 		return list;
 	}
-
+	// 指定された入学年度、クラス番号、科目、学校 に合致するテストの情報をデータベースから取得し、その結果を返す。
 	public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) throws Exception {
 
 		List<TestListSubject> list = new ArrayList<>();

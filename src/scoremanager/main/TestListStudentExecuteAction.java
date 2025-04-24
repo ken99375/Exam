@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import bean.Teacher;
 import bean.Test;
+import dao.TestListStudentDao;
 import tool.Action;
 
 public class TestListStudentExecuteAction extends Action {
@@ -20,7 +21,8 @@ public class TestListStudentExecuteAction extends Action {
 	 Teacher teacher = (Teacher)session.getAttribute("user");
 
 	 // ユーザ情報がない場合はエラーメッセージを出す。
-	 if (teacher != null) {		 String schoolCode = teacher.getSchool().getCd();
+	 if (teacher != null) {
+		 String schoolCode = teacher.getSchool().getCd();
 
 		 // フォーム入力取得
 		 // 学生番号
@@ -39,10 +41,6 @@ public class TestListStudentExecuteAction extends Action {
 			 }
 
 
-
-	 // データ取得
-	 List<Test> studentList = new TestListStudentDao().filter(teacher.getSchool());
-
 	 // 成績データリストを初期化
 	 // エラー回避・JSP連携の安全性確保のため
 	 List<Test> testList = null;
@@ -51,7 +49,7 @@ public class TestListStudentExecuteAction extends Action {
 	 // ただし、TestDaoがないためエラー
 	 if (errors.isEmpty()) {
 		 TestListStudentDao testDao = new TestListStudentDao();
-		 testList = testDao.filter(schoolCode, entYear, classNum, subjectCd);
+		 testList = testDao.filter(student);
 	 }
 
 	 // 入力値と検索結果をリクエストスコープ（JSPへ引き渡し）へセット

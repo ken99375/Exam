@@ -57,12 +57,16 @@ public class TestListSubjectExecuteAction extends Action {
 			 errors.put("f3","科目を選択してください");
 		 }
 
+		 // SubjectDaoのgetメソッドを使い、
+		 		//所属校と科目コードで絞り込んで科目テーブルの一行を返す
 		 SubjectDao sub_dao = new SubjectDao();
 		 Subject subject = sub_dao.get(subjectCd, teacher.getSchool());
 
 	 // entYear
 	// classNum
 	// subject
+		 // TestListSubjectDaoのfilterメソッドを使い、
+		 		// 指定された入学年度、クラス番号、科目、学校 に合致するテストの情報を取得して返す。
 		 TestListSubjectDao tl_sub_dao = new TestListSubjectDao();
 		 List<TestListSubject> tl_sub = tl_sub_dao.filter(entYear, classNum, subject, teacher.getSchool());
 
