@@ -15,7 +15,7 @@ import tool.Action;
 
 public class TestListStudentExecuteAction extends Action {
   public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-    req.setCharacterEncoding("UTF-8");
+
 	 // ユーザ（教師）データを取得する
 	 HttpSession session = req.getSession();
 	 Teacher teacher = (Teacher)session.getAttribute("user");
