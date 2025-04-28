@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -312,7 +313,11 @@ public class StudentDao extends Dao {
 	        // プリペアードステートメントを実行
 	        count = statement.executeUpdate();
 
-	    } catch (Exception e) {
+	    } catch(SQLIntegrityConstraintViolationException dupEx){
+	    	// マルチアクセスが起きた場合に備えてSQLでの重複エラー表示
+	        // SQLでinsertしようとした場合に重複が起きた際ここでキャッチ
+	    	return false;
+	    }catch (Exception e) {
 	        throw e;
 	    } finally {
 	        // プリペアードステートメントを閉じる
