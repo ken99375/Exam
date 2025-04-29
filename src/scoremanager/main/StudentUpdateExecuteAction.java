@@ -41,12 +41,14 @@ public class StudentUpdateExecuteAction extends Action {
 
     // 更新
     StudentDao dao = new StudentDao();
-    dao.save(student);
+    boolean result = dao.save(student);
 
-    // 完了画面へ
-    req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
-
+    // boolean型の場合if(result)でおけ。
+    if (result){
+		req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
+	} else {
+		req.getRequestDispatcher("/error.jsp").forward(req, res);
+	}
   }
-
 }
 
