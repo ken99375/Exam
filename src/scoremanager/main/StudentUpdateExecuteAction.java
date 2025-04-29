@@ -1,5 +1,10 @@
 package scoremanager.main;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,8 +16,16 @@ import tool.Action;
 
 public class StudentUpdateExecuteAction extends Action {
 
+	// サーバ側のエラーチェック後のページ戻り一括処理
+	public void errorBack(HttpServletRequest req, HttpServletResponse res,
+			Map<String, String> errors, String jsp
+			) throws ServletException, IOException{
+		req.setAttribute("errors", errors);
+		req.getRequestDispatcher(jsp).forward(req, res);
+	}
   public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
     req.setCharacterEncoding("UTF-8");
+    Map<String, String> errors = new HashMap<>();
 
     // 入力値取得
     // 回数
@@ -26,6 +39,19 @@ public class StudentUpdateExecuteAction extends Action {
     // 在学中フラグ
     boolean attend = req.getParameter("attend") != null;
 
+
+    // 氏名が入力されてない場合のエラー文字設定
+    if (name == null || name.isEmpty()){
+		errors.put("name", "氏名が入力されていません。");
+		errorBack(req, res, errors, "student_create.jsp");
+		return;
+    }
+    // クラスが選択されてない場合のエラー文字設定
+    if (classNum == null || classNum.isEmpty()){
+    	errors.put("classNum", "クラスが入力されていません。");
+    	errorBack(req, res, errors, "student_create.jsp");
+    	return;
+    }
     // セッションから先生を取得して、所属学校を取得
     Teacher teacher = (Teacher) req.getSession().getAttribute("user");
     School school = teacher.getSchool();
