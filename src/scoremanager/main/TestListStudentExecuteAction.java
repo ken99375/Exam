@@ -1,5 +1,7 @@
 package scoremanager.main;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Student;
+import bean.Subject;
 import bean.Teacher;
-import bean.Test;
+import bean.TestListStudent;
+import dao.ClassNumDao;
+import dao.StudentDao;
+import dao.SubjectDao;
 import dao.TestListStudentDao;
 import tool.Action;
 
@@ -27,6 +34,8 @@ public class TestListStudentExecuteAction extends Action {
 		 // フォーム入力取得
 		 // 学生番号
 		 String student_id = req.getParameter("f1");
+		 StudentDao stu_dao = new StudentDao();
+		 Student student = stu_dao.get(student_id);
 
 		 // 入力チェック用エラーメッセージ
 		 int entYear = 0;
@@ -43,7 +52,7 @@ public class TestListStudentExecuteAction extends Action {
 
 	 // 成績データリストを初期化
 	 // エラー回避・JSP連携の安全性確保のため
-	 List<Test> testList = null;
+	 List<TestListStudent> testList = null;
 
 	 // 入力エラーがなければ検索実行
 	 // ただし、TestDaoがないためエラー
@@ -53,8 +62,23 @@ public class TestListStudentExecuteAction extends Action {
 	 }
 
 	 // 入力値と検索結果をリクエストスコープ（JSPへ引き渡し）へセット
+	 LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
+	 int year = todaysDate.getYear(); // 現在の年を取得
+	// 先生の所属する学校のクラスリストを持ってくる
+	ClassNumDao c_dao = new ClassNumDao();
+	List<String> c_list = c_dao.filter(teacher.getSchool());
+	// 先生の所属する学校の科目データを持ってくる
+	SubjectDao sub_dao = new SubjectDao();
+	List<Subject> sub_list = sub_dao.filter(teacher.getSchool());
+	List<Integer> entYearSet = new ArrayList<>();
+	 // 10年前から1年後まで年をリストに追加
+	 for (int i = year -10; i < year + 10; i++) {
+		 entYearSet.add(i);
+	 }
+
+	req.setAttribute("c_list", c_list);
+	req.setAttribute("sub_list", sub_list);
 	 req.setAttribute("f1", student_id);
-	 req.setAttribute("classList", classList);
 	 req.setAttribute("testList", testList);
 	 req.setAttribute("erroes", errors);
 
