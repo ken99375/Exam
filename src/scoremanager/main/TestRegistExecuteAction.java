@@ -1,4 +1,3 @@
-///// 12,74,80,81でエラー
 
 
 package scoremanager.main;

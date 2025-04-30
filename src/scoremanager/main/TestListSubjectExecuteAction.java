@@ -23,7 +23,8 @@ public class TestListSubjectExecuteAction extends Action {
 	 Teacher teacher = (Teacher)session.getAttribute("user");
 
 	 // ユーザ情報がない場合はエラーメッセージを出す。
-	 if (teacher != null) {		 String schoolCode = teacher.getSchool().getCd();
+	 if (teacher != null) {
+		 String schoolCode = teacher.getSchool().getCd();
 
 		 // フォーム入力取得
 		 // 入学年度
