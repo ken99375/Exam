@@ -2,49 +2,60 @@ package bean;
 
 public class Test implements java.io.Serializable {
 	/* フィールド*/
-	private int student_id;
-	private String subject_cd;
+	private Student student;
+	private String classNum;
+	private Subject subject;
 	private School school;
 	private int no;
 	private int point;
-	private int class_num;
 
-	public int getStudent_id() {
-		return student_id;
-	}
-	public void setStudent_id(int student_id) {
-		this.student_id = student_id;
-	}
-	public String getSubject_cd() {
-		return subject_cd;
-	}
-	public void setSubject_cd(String subject_cd) {
-		this.subject_cd = subject_cd;
+	// 以下セッター
+	public void setStudent(Student student){
+		this.student = student;
 	}
 
-	public School getSchool() {
-		return school;
+	public void setClassNum(String classNum){
+		this.classNum = classNum;
 	}
-	public void setSchool(School school) {
+
+	public void setSubject(Subject subject){
+		this.subject = subject;
+	}
+
+	public void setSchool(School school){
 		this.school = school;
 	}
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
+
+	public void setNo(int no){
 		this.no = no;
 	}
-	public int getPoint() {
-		return point;
-	}
-	public void setPoint(int point) {
+
+	public void setPoint(int point){
 		this.point = point;
 	}
-	public int getClass_num() {
-		return class_num;
-	}
-	public void setClass_num(int class_num) {
-		this.class_num = class_num;
+
+	// 以下ゲッター
+	public Student getStudent(){
+		return this.student;
 	}
 
+	public String getClassNum(){
+		return this.classNum;
+	}
+
+	public Subject getSubject(){
+		return this.subject;
+	}
+
+	public School getSchool(){
+		return this.school;
+	}
+
+	public int getNo(){
+		return this.no;
+	}
+
+	public int getPoint(){
+		return this.point;
+	}
 }
