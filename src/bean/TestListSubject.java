@@ -6,7 +6,10 @@ public class TestListSubject implements java.io.Serializable{
 	private String studentNo;
 	private String studentName;
 	private String classNum;
-	// 一つのフィールドで二つの情報を保持
+	 // 一回目、二回目の点数をそれぞれ保持させる
+	// つまり一人につき、二行出てくるようにする
+	// でもjspで使用したいのはそれぞれを合わせた一行、、、
+	// アクションクラスがとんでもないことになるかも
 	private Map<Integer, Integer> points;
 
 	// 以下ゲッター
@@ -28,24 +31,18 @@ public class TestListSubject implements java.io.Serializable{
 	}
 
 	// getPoints() Map<Integer, Integer>
+	// 下のメソッドでセットしたものを取り出すメソッド
+	// TestListSubjectDaoクラスで使用すると思う。
 	public Map<Integer, Integer> getPoints(){
 		return this.points;
 	}
 
-	// getPoint(key : int):String
-//	public String getPoint(int subjectId) {
-//        // pointsマップから指定された科目IDに対応する得点を取得
-//        Integer point = points.get(subjectId);
-//
-//        // 得点がnullの場合は、"Not Available"を返す
-//        if (point != null) {
-//            return String.valueOf(point); // 得点があればその値をStringとして返す
-//        } else {
-//            return "Not Available"; // 得点がなければ"Not Available"を返す
-//        }
-//    }
-
-	// putPoint(key:int, value:int): void
+	 // getPoint(key : int):String
+	public String getPoint(int key) {
+		Integer value = this.points.get(key);
+		// nullチェックしてから文字列化
+		 return value != null ? value.toString() : null;
+	 }
 
 	// 以下セッター
 	public void setEntYear(int entYear){
@@ -63,4 +60,12 @@ public class TestListSubject implements java.io.Serializable{
 	public void setClassNum(String classNum){
 		this.classNum = classNum;
 	}
+
+	// 一回目と二回目の点数をセットするためのメソッド
+	public void setPoints(Map<Integer, Integer> points){
+		this.points = points;
+	}
+
+	// ここをDaoクラスで使用して、TestSujectのMapに設定するという事かも
+	// putPoint(key:int, value:int): void
 }
