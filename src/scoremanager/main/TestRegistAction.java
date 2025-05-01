@@ -1,6 +1,3 @@
-/// 96,97でエラー
-
-
 package scoremanager.main;
 
 import java.util.HashMap;
@@ -16,6 +13,7 @@ import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
 import dao.SubjectDao;
+import dao.TestDao;
 import tool.Action;
 
 public class TestRegistAction extends Action {
@@ -27,7 +25,7 @@ public class TestRegistAction extends Action {
 	 Teacher teacher = (Teacher)session.getAttribute("user");
 
 	 // ユーザ情報がない場合はエラーメッセージを出す。
-	 if (teacher != null) {
+	 if (teacher == null) {
          req.setAttribute("error", "ユーザー情報が取得できませんでした。ログインし直してください。");
          req.getRequestDispatcher("error.jsp").forward(req, res);
          return;
@@ -69,9 +67,17 @@ public class TestRegistAction extends Action {
          errors.put("f2", "クラスを選択してください。");
      }
 
-     // 科目が未選択の場合
-     if (subjectCd == null || subjectCd.equals("0")) {
-         errors.put("f3", "科目を選択してください。");
+  // 科目コードからSubjectオブジェクトを取得
+     Subject subject = null;
+     for (Subject sub : subjectList) {
+         if (sub.getCd().equals(subjectCd)) {
+             subject = sub;
+             break;
+         }
+     }
+
+     if (subject == null) {
+         errors.put("f3", "指定された科目が存在しません。");
      }
 
      // 回数のバリデーション
@@ -91,10 +97,9 @@ public class TestRegistAction extends Action {
      List<Test> testList = null;
 
      // 入力チェックエラーがなければDBから成績データを取得
-     // TestDaoがないためエラー表示
      if (errors.isEmpty()) {
-//////////////         TestDao testDao = new TestDao();
-/////////////         testList = testDao.filter(teacher.getSchool().getCd(), entYear, classNum, subjectCd, no);
+        TestDao testDao = new TestDao();
+//        public List<Test>.filter(entYear, classNum, subject, noStr, teacher.getSchool());
      }
 
      // 入力内容と結果・エラーをJSPに渡す（再表示・状態保持用）

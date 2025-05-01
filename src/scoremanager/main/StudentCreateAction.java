@@ -20,8 +20,10 @@ public class StudentCreateAction extends Action{
 		try {
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
+
 			//入学年度現在の年から-10と+10の合計20個から選択できるようにする
 			LocalDate todayDate = LocalDate.now(); // LocaDateインスタンスを取得
+
 			int year = todayDate.getYear(); // 現在の年を取得
 			// リストを初期化
 			List<Integer> ent_year_list = new ArrayList<>();
