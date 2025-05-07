@@ -17,6 +17,7 @@ public class FrontController extends HttpServlet {
             // パスを取得
             String path = req.getServletPath().substring(1);
 
+            System.out.println(path);
             // ファイル名を取得しクラス名に変換
             String name = path.replace(".a", "A").replace('/', '.');
 
