@@ -16,8 +16,8 @@
             </div>
 
             <c:choose>
-                <c:when test="${subjects.size() > 0}">
-                    <div>科目一覧：${subjects.size()}件</div>
+                <c:when test="${subject_list.size() > 0}">
+                    <div>科目一覧：${subject_list.size()}件</div>
                     <table class="table table-hover">
                         <tr>
                             <th>科目コード</th>
@@ -26,7 +26,7 @@
                             <th></th>
                             <th></th>
                         </tr>
-                        <c:forEach var="subject" items="${subjects}">
+                        <c:forEach var="subject" items="${subject_list}">
                             <tr>
                                 <td>${subject.cd}</td>
                                 <td>${subject.name}</td>
