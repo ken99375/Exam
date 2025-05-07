@@ -25,19 +25,16 @@ public class TestListSubject implements java.io.Serializable{
 		return this.studentName;
 	}
 
-	// getClassNum(): String
 	public String getClassNum(){
 		return this.classNum;
 	}
 
-	// getPoints() Map<Integer, Integer>
 	// 下のメソッドでセットしたものを取り出すメソッド
 	// TestListSubjectDaoクラスで使用すると思う。
 	public Map<Integer, Integer> getPoints(){
 		return this.points;
 	}
 
-	 // getPoint(key : int):String
 	public String getPoint(int key) {
 		Integer value = this.points.get(key);
 		// nullチェックしてから文字列化
@@ -68,4 +65,7 @@ public class TestListSubject implements java.io.Serializable{
 
 	// ここをDaoクラスで使用して、TestSujectのMapに設定するという事かも
 	// putPoint(key:int, value:int): void
+	public void putPoint(int key, int value){
+		this.points.put(key, value);
+	}
 }
