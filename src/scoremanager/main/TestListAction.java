@@ -1,9 +1,10 @@
 package scoremanager.main;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,41 +17,46 @@ import dao.SubjectDao;
 import tool.Action;
 
 public class TestListAction extends Action{
+	public void execute(HttpServletRequest req, HttpServletResponse res
+			) throws Exception {
 
-	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception, IOException {
-		 // ユーザ（教師）データを取得する
-		 HttpSession session = req.getSession();
-		 Teacher teacher = (Teacher)session.getAttribute("user");
+		try {
+			Map<String, String> errors = new HashMap<>();
+			HttpSession session = req.getSession();
+			Teacher teacher = (Teacher)session.getAttribute("user");
 
-		 LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
-		 int year = todaysDate.getYear(); // 現在の年を取得
-		 // ユーザ情報があった場合、→
-		 	// ユーザが所属しているクラスと科目データを取得する
-		 // ない場合はエラーメッセージを出す。
-		 if (teacher != null) {
+			LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
+			 int year = todaysDate.getYear(); // 現在の年を取得
+			// 先生の所属する学校のクラスリストを持ってくる
+			ClassNumDao c_dao = new ClassNumDao();
+			List<String> c_list = c_dao.filter(teacher.getSchool());
+			if (c_list.isEmpty()) {
+				errors.put("c_error", "クラスが存在しません");
+			}
+			// 先生の所属する学校の科目データを持ってくる
+			SubjectDao sub_dao = new SubjectDao();
+			List<Subject> sub_list = sub_dao.filter(teacher.getSchool());
+			if (sub_list.isEmpty()) {
+				errors.put("sub_error", "科目が存在しません");
+			}
+			// エラー文字設定されたとき元のページへ戻る
+			if (!errors.isEmpty()){
+				req.setAttribute("errors", errors);
+				errorBack(req, res, errors, "test_list.jsp");
+				return;
+			}
+			List<Integer> entYearSet = new ArrayList<>();
+			 // 10年前から1年後まで年をリストに追加
+			 for (int i = year -10; i < year + 10; i++) {
+				 entYearSet.add(i);
+			 }
 
-				// ログインユーザーの学校コードをもとにクラス情報を取得
-			 	ClassNumDao classDao = new ClassNumDao();
-				List<String> classlist = classDao.filter(teacher.getSchool());
-
-				// ログインユーザーの学校コードをもとに科目情報を取得
-				SubjectDao subjectDao = new SubjectDao();
-				List<Subject> subjectList = subjectDao.filter(teacher.getSchool());
-
-				List<Integer> entYearSet = new ArrayList<>();
-				 // 10年前から1年後まで年をリストに追加
-				 for (int i = year -10; i < year + 10; i++) {
-					 entYearSet.add(i);
-				 }
-
-				// jspに渡すデータをセット(不明)
-				 req.setAttribute("classList", classlist);
-				 req.setAttribute("subjectList", subjectList);
-				 req.setAttribute("ent_year_set", entYearSet);
-				 req.getRequestDispatcher("test_list.jsp").forward(req,res);
-		 } else {
-			 req.setAttribute("error", "ユーザー情報が取得できませんでした。ログインし直してください。");
-		 }
+			req.setAttribute("c_list", c_list);
+			req.setAttribute("sub_list", sub_list);
+			req.setAttribute("ent_year_set", entYearSet);
+			req.getRequestDispatcher("test_list.jsp").forward(req, res);
+		} catch (Exception e){
+			req.getRequestDispatcher("/error.jsp").forward(req, res);
+		}
 	}
 }
