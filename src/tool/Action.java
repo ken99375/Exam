@@ -1,15 +1,18 @@
 package tool;
 
+import java.io.IOException;
+import java.util.Map;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-// 抽象クラス
-// 完成していないクラス
-//   →使用する場合は継承しなければならない
 public abstract class Action {
+	public void errorBack(HttpServletRequest req, HttpServletResponse res, Map<String, String> errors, String errorPage
+			) throws ServletException, IOException {
+		req.setAttribute("errors", errors);
+		req.getRequestDispatcher(errorPage).forward(req, res);
+	}
 
-	// メソッド名:execute
-	public abstract void execute(
-			HttpServletRequest request, HttpServletResponse response
-		)throws Exception;
+	public abstract void execute(HttpServletRequest req, HttpServletResponse res
+			) throws Exception;
 }
