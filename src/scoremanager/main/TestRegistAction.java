@@ -22,7 +22,7 @@ public class TestRegistAction extends Action{
 	public void execute(HttpServletRequest req, HttpServletResponse res
 			) throws Exception {
 		try {
-			// エラーメッセージの格納MAP
+			// エラーメッセージの格納Map
 			Map<String, String> errors = new HashMap<>();
 			// セッションからユーザーを取得
 			HttpSession session = req.getSession();
