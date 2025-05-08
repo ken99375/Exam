@@ -15,7 +15,7 @@
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-2">
                         <label class="form-label" for="student-f1-select">入学年度</label>
-                        <select class="form-select" id="student-f1-select" name="f1">
+                        <select class="form-select" id="student-f1-select" name="ent_year">
                             <option value="0">--------</option>
                             <c:forEach var="year" items="${ent_year_set}">
                                 <%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
@@ -28,9 +28,9 @@
                     </div>
                     <div class="col-2">
                         <label class="form-label" for="student-f2-select">クラス</label>
-                        <select class="form-select" id="student-f2-select" name="f2">
+                        <select class="form-select" id="student-f2-select" name="class_num">
                             <option value="0">--------</option>
-                            <c:forEach var="num" items="${class_num_set}">
+                            <c:forEach var="num" items="${c_list}">
                                 <%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
                                 <option value="${num}" <c:if test="${num == f2 }">selected</c:if>>${num }</option>
                             </c:forEach>
@@ -41,9 +41,9 @@
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="student-f3-check">科目</label>
-                            <select class="form-select" id="student-f3-select" name="f3">
+                            <select class="form-select" id="student-f3-select" name="cd">
                             <option value="0">--------</option>
-                            <c:forEach var="subject" items="${subject}">
+                            <c:forEach var="subject" items="${sub_list}">
                                 <option value="${subject }" <c:if test="${subject == f3 }">selected</c:if>>${num }</option>
                             </c:forEach>
                         </select>
@@ -55,11 +55,10 @@
                     </div>
                     <div class="col-2">
                         <label class="form-label" for="student-f4-select">回数</label>
-                        <select class="form-select" id="student-f4-select" name="f4">
+                        <select class="form-select" id="student-f4-select" name="times">
                             <option value="0">--------</option>
-                            <c:forEach var="count" items="${count}">
-                                <option value="${count }" <c:if test="${count == f4 }">selected</c:if>>${num }</option>
-                            </c:forEach>
+                            <option value= "1" >1</option>
+                            <option value = "2">2</option>
                         </select>
                         <c:if test="${errors.f4 != null}">
                             <div class="text-danger small">${errors.f4}</div>
@@ -73,46 +72,48 @@
                     <div class="mt-2 text-warning">${errors.get("f1")}</div>
                 </div>
             </form>
-		<c:choose>
 
-    		<c:when test="${students.size() > 0}">
-        		<div>科目：${subject} (${count }件)</div>
-        		<table class="table table-hover">
-		            <tr>
-		                <th>入学年度</th>
-		                <th>クラス</th>
-		                <th>学生番号</th>
-		                <th>氏名</th>
-		                <th>点数</th>
-
-		                <th></th>
-		            </tr>
-
-           			<c:forEach var="student "items="${students}">
-		                <tr>
-		                    <td>${student.entYear}</td>
-		                    <td>${student.classNum}</td>
-		                    <td>${student.no}</td>
-		                    <td>${student.name}</td>
-		                    <td>${student.point }</td>
-                    		<td class="text-center">
-                    		<c:if test="${errors.point != null}">
-                    		<%-- <div class="mt-2 text-danger small">${errors.point}</div> --%>
-                    		</c:if></td>
-		                </tr>
-		            </c:forEach>
-
-		        </table>
-		        <div class="mb-3 text-left">
-		        		<input type="radio" class="btn-check" name="options" id="option4" autocomplete="off">
-                        <button class="btn btn-secondary" id="filter-button">登録して終了</button>
-                </div>
-
-		    </c:when>
-    		<c:otherwise>
-        		<div>学生情報が存在しませんでした。</div>
-    		</c:otherwise>
-		</c:choose>
+			<form action = "TestRegistExecute.action" method = "get">
+	            	<input type = "hidden" name = "ent_year" value="${param.ent_year}"/>
+	            	<input type = "hidden" name = "class_num" value="${param.class_num}"/>
+	            	<input type = "hidden" name = "cd" value="${param.cd}"/>
+	            	<input type = "hidden" name = "times" value="${param.times}"/>
+	            	<c:choose>
+			    		<c:when test="${test_li.size() > 0}">
+			    		<p>科目：${subject.name} (${times} 回) </p>
+			        		<table class="table table-hover">
+					            <tr>
+					                <th>入学年度</th>
+					                <th>クラス</th>
+					                <th>学生番号</th>
+					                <th>氏名</th>
+					                <th>点数</th>
+					            </tr>
+			            		<c:forEach var="test" items="${test_li}" varStatus = "st">
+					                <tr>
+					                    <td>${test.student.entYear}</td>
+					                    <td>${test.classNum}</td>
+			                    		<td>${test.student.no}<input type = "hidden" name = "studentNo" value = "${test.student.no}" /></td>
+			                    		<td>${test.student.name}</td>
+			                    		<td>
+			                    			<input type = "text" name = "po" value = "${test.point}">
+			                    			<c:set var = "key" value= "${'po'}${st.index}" />
+			                    			<c:if test = "${not empty errors[key]}"><span class ="text-danger">${errors[key]}</span></c:if>
+			                    		</td>
+					                </tr>
+					                <input type = "hidden" name = "subjectCd" value = "${test.subject.cd}" >
+			                    	<input type = "hidden" name = "no" value = "${test.no}" >
+					            </c:forEach>
+					        </table>
+					        <div class="col-2 text-center">
+	                        	<button  type ="submit" class="btn btn-secondary" id="filter-button">登録して終了</button>
+	                    	</div>
+					    </c:when>
+			    		<c:otherwise>
+			        		<div>検索情報が存在しません。</div>
+			    		</c:otherwise>
+					</c:choose>
+	            </form>
 	</section>
    </c:param>
 </c:import>
