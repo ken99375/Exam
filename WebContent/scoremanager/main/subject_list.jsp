@@ -22,7 +22,6 @@
                         <tr>
                             <th>科目コード</th>
                             <th>科目名</th>
-                            <th class="text-center">在学中</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -30,18 +29,8 @@
                             <tr>
                                 <td>${subject.cd}</td>
                                 <td>${subject.name}</td>
-                                <td class="text-center">
-                                    <c:choose>
-                                        <c:when test="${subject.isActive}">
-                                            ○
-                                        </c:when>
-                                        <c:otherwise>
-                                            ×
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                                <td><a href="SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
-                                <td><a href="SubjectDelete.action?cd=${subject.cd}">削除</a></td>
+                                <td><a href = "SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
+                    			<td><a href = "SubjectDelete.action?cd=${subject.cd}">削除</a></td>
                             </tr>
                         </c:forEach>
                     </table>

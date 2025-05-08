@@ -12,12 +12,13 @@
 
                 <div class="mb-3">
     				<label for="cd" class="form-label">科目コード</label>
-    				<input type="text" class="form-control" id="cd" name="cd" value="${cd}" readonly />
+    				<div>${subject.cd}</div>
+    				<input type="hidden" class="form-control" id="cd" name="cd" value="${subject.cd}" />
 				</div>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">科目名</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${student.name}" />
+                    <input type="text" class="form-control" id="name" name="name" placeholder="科目名を入力してください" required />
                 </div>
 
                 <div class="mb-3">
