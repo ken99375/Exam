@@ -20,65 +20,75 @@ import dao.SubjectDao;
 import dao.TestListStudentDao;
 import tool.Action;
 
+// 学生に紐づく成績を取得して表示するアクションクラス
 public class TestListStudentExecuteAction extends Action{
 	public void execute(HttpServletRequest req, HttpServletResponse res
 			) throws Exception {
 		try {
+			// エラーメッセージを保持するメソッドを初期化
 			Map<String, String> errors = new HashMap<>();
+			// 	セッションからログイン中の教師情報を取得
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
-			// 学生は学校コードと学生コードで一意に決まるはずだから本来は
-			// ユーザの学校コードと学生コードで成績をとってくるはずなのに、、、
-//			HttpSession session = req.getSession();
-//			Teacher teacher = (Teacher)session.getAttribute("user");
+
+			// DAOの初期化
+			// データベースのアクセスのために必要
 			TestListStudentDao tls_dao = new TestListStudentDao();
 			StudentDao stu_dao = new StudentDao();
 
 			// 送られてきたパラメータで学生を特定できるらしい。
 			// データベースの設計が甘い可能性有り。
+			// パラメータから学生コードを取得して、該当学生を取得。
 			String stu_cd = req.getParameter("cd");
 			Student student = stu_dao.get(stu_cd);
 
-			LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
-			 int year = todaysDate.getYear(); // 現在の年を取得
-			// 先生の所属する学校のクラスリストを持ってくる
+			// 今日の日付を取得し、現在の年を取得する
+			LocalDate todaysDate = LocalDate.now();
+			int year = todaysDate.getYear();
+			// 先生の所属する学校のクラスリストを取得する
 			ClassNumDao c_dao = new ClassNumDao();
 			List<String> c_list = c_dao.filter(teacher.getSchool());
-			if (c_list.isEmpty()) {
-				errors.put("c_error", "クラスが存在しません");
-			}
-			// 先生の所属する学校の科目データを持ってくる
+				// クラスが存在しない場合はエラーメッセージを表示する
+				if (c_list.isEmpty()) {
+					errors.put("c_error", "クラスが存在しません");
+				}
+			// 先生の所属する学校の科目データを取得する
 			SubjectDao sub_dao = new SubjectDao();
 			List<Subject> sub_list = sub_dao.filter(teacher.getSchool());
-			if (sub_list.isEmpty()) {
-				errors.put("sub_error", "科目が存在しません");
-			}
-
+				// 科目が存在しない場合はエラーメッセージを表示する
+				if (sub_list.isEmpty()) {
+					errors.put("sub_error", "科目が存在しません");
+				}
+			// 	入学年度をリスト化する
 			List<Integer> entYearSet = new ArrayList<>();
-			 // 10年前から1年後まで年をリストに追加
-			 for (int i = year -10; i < year + 10; i++) {
-				 entYearSet.add(i);
-			 }
-
-			req.setAttribute("item", student.getName());
-			req.setAttribute("c_list", c_list);
-			req.setAttribute("sub_list", sub_list);
-			req.setAttribute("ent_year_set", entYearSet);
-			// 特定した学生で成績をとってくる
+			// 10年前から1年後まで年をリストに追加
+			for (int i = year -10; i < year + 10; i++) {
+				entYearSet.add(i);
+			}
+			// JSPへ渡すデータをリクエストにセット
+			req.setAttribute("student_name", student.getName());// 学生名
+			req.setAttribute("c_list", c_list);					// クラス一覧
+			req.setAttribute("sub_list", sub_list);				// 科目一覧
+			req.setAttribute("ent_year_set", entYearSet);		// 入学年度セット
+			// 特定した学生で成績を取得する
 			List<TestListStudent> stu_list = tls_dao.filter(student);
-			if (stu_list == null){
-				errors.put("ets", "この学生のテスト履歴はありません");
-			}
-			// エラー文字設定されたとき元のページへ戻る
-			if (!errors.isEmpty()){
-				req.setAttribute("errors", errors);
-				errorBack(req, res, errors, "test_list_stdent.jsp");
-				return;
-			}
+				// 成績が存在しない場合はエラーメッセージを表示する
+				if (stu_list == null){
+					errors.put("ets", "この学生のテスト履歴はありません");
+				}
+				// エラー文字設定されたとき元のページへ戻る
+				if (!errors.isEmpty()){
+					req.setAttribute("errors", errors);
+					errorBack(req, res, errors, "test_list_student.jsp");
+					return;
+				}
+			// デバッグ用出力
 			System.out.println(stu_list);
+			// 成績リストをtesu_list_student.jspにフォワードする
 			req.setAttribute("stu_list", stu_list);
 			req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
 		} catch(Exception e) {
+			// 例外が発生した場合、エラーページにフォワードする
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
 		}
 	}

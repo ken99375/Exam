@@ -22,34 +22,47 @@ public class TestRegistAction extends Action{
 	public void execute(HttpServletRequest req, HttpServletResponse res
 			) throws Exception {
 		try {
+			// エラーメッセージの格納MAP
 			Map<String, String> errors = new HashMap<>();
+			// セッションからユーザーを取得
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
+			// 科目DAOのインスタンスを作成
 			SubjectDao sub_dao = new SubjectDao();
 
+			// 入学年度を取得し、数値に変換する
 			int entYear = 0;
 			String entYearStr = req.getParameter("ent_year");
-			if (entYearStr != null ){
-				entYear = Integer.parseInt(entYearStr);
-			}
-			if (entYear != 0 ){
 
+				if (entYearStr != null ){
+					entYear = Integer.parseInt(entYearStr);
+				}
+			// 入学年度が指定されている場合...
+			if (entYear != 0 ){
+				// クラス、科目コード、回数を取得
 				String classNum = req.getParameter("class_num");
 				String subjectCd = req.getParameter("cd");
 				int times = Integer.parseInt(req.getParameter("times"));
+
+				// 科目コードと学校情報から科目を取得
 				Subject subject = sub_dao.get(subjectCd, teacher.getSchool());
+
 				// 処理到達のチェック
 				System.out.println(entYear);
+				// テストDAOから、指定条件に一致するテスト一覧を取得
 				TestDao testDao = new TestDao();
 				List<Test> test_li = testDao.filter(entYear, classNum, subject, times, teacher.getSchool());
+
 				// 処理到達のチェック
 				System.out.println(test_li);
+				// JSPに渡すデータをリクエストスコープにセット
 				req.setAttribute("test_li", test_li);
 				req.setAttribute("subject", subject);
 				req.setAttribute("times", times);
 			}
 			// 処理到達のチェック
 			System.out.println(entYear);
+
 			LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
 			 int year = todaysDate.getYear(); // 現在の年を取得
 			// 先生の所属する学校のクラスリストを持ってくる
@@ -71,7 +84,7 @@ public class TestRegistAction extends Action{
 			// エラー文字設定されたとき元のページへ戻る
 			if (!errors.isEmpty()){
 				req.setAttribute("errors", errors);
-				errorBack(req, res, errors, "test_list_stdent.jsp");
+				errorBack(req, res, errors, "test_list_student.jsp");
 				return;
 			}
 
@@ -79,7 +92,7 @@ public class TestRegistAction extends Action{
 			req.setAttribute("sub_list", sub_list);
 			req.setAttribute("ent_year_set", entYearSet);
 
-			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+			req.getRequestDispatcher("test_regist.sp").forward(req, res);
 		} catch (Exception e){
 			e.printStackTrace();
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
