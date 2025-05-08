@@ -13,12 +13,12 @@
                 <div class="mx-3 mb-3 py-2 rounded" id="registrationForm">
                     <div class="mb-3">
                         <label class="form-label" for="student-f2-select">科目コード</label>
-                        <input type="text" class=" form-control" placeholder="科目コードを入力してください" name="cd" required value="${cd }">
+                        <input type="text" class=" form-control" placeholder="科目コードを入力してください" name="cd" required>
                     </div>
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f3-select">科目名</label>
-                        <input type="text" class=" form-control" placeholder="科目名を入力してください" name="name" required value="${name }">
+                        <input type="text" class=" form-control" placeholder="科目名を入力してください" name="name" required>
                     </div>
                     <p></p>
                     <div class="mb-3 text-left">
