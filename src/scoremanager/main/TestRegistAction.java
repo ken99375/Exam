@@ -84,7 +84,7 @@ public class TestRegistAction extends Action{
 			// エラー文字設定されたとき元のページへ戻る
 			if (!errors.isEmpty()){
 				req.setAttribute("errors", errors);
-				errorBack(req, res, errors, "test_list_student.jsp");
+				errorBack(req, res, errors, "error.jsp");
 				return;
 			}
 
@@ -92,7 +92,7 @@ public class TestRegistAction extends Action{
 			req.setAttribute("sub_list", sub_list);
 			req.setAttribute("ent_year_set", entYearSet);
 
-			req.getRequestDispatcher("test_regist.sp").forward(req, res);
+			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 		} catch (Exception e){
 			e.printStackTrace();
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
