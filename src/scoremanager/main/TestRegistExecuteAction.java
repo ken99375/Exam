@@ -29,24 +29,27 @@ public class TestRegistExecuteAction extends Action{
 			Teacher teacher = (Teacher)session.getAttribute("user");
 
 			// フォームから受取る情報（複数生徒の点数登録に対応）
-			String[] studentNos = req.getParameterValues("studentNo");
-			String subjectCds = req.getParameter("subjectCd"); // 科目コードとテスト番号は絞り込んでるから一意
-			int no = Integer.parseInt(req.getParameter("no"));
-			String[] pointStr = req.getParameterValues("po");
+			String[] studentNos = req.getParameterValues("studentNo");// 生徒番号
+			String subjectCds = req.getParameter("subjectCd"); // 科目コード (単数)
+			int no = Integer.parseInt(req.getParameter("no")); // テスト番号
+			String[] pointStr = req.getParameterValues("po"); // 点数（複数）
 
-
+			// 点数をint型に変換し、数値に異常がないか審査する
 			int[] points = new int[pointStr.length];
 			for (int i = 0; i < pointStr.length; i++){
 				try {
 					int tyeckpoint = Integer.parseInt(pointStr[i]);
+					// 点数が0～100の範囲かチェックする
 					if (tyeckpoint < 0 || 100 < tyeckpoint){
 						errors.put("po" + i, "0~100の範囲で入力してください");
 					}
 					points[i] = tyeckpoint;
 				} catch(NumberFormatException e){
+					// 数値でない場合はエラーを出す
 					errors.put("po" + i, "数値で入力してください");
 				}
 			}
+			// エラーが発生したら入力画面に戻す
 			if (!errors.isEmpty()){
 				errorBack(req, res, errors, "TestRegist.action");
 				return;
@@ -56,8 +59,11 @@ public class TestRegistExecuteAction extends Action{
 			SubjectDao sub_dao = new SubjectDao();
 			Subject subject = sub_dao.get(subjectCds, teacher.getSchool());
 
+			// テスト登録用のTestオブジェクトを構築
 			List<Test> updateTest = new ArrayList<>();
 			StudentDao s_dao = new StudentDao();
+
+			// 学生情報を取得
 			for (int i = 0; i < studentNos.length; i++){
 				// 学生番号はRegistActionクラスで一意に決まってるから
 				// testオブジェクトには学生オブジェクトを使用して代入
@@ -65,18 +71,21 @@ public class TestRegistExecuteAction extends Action{
 
 				Test test = new Test();
 				test.setStudent(student);
-				test.setClassNum(student.getClassNum());
-				test.setSubject(subject);
-				test.setSchool(teacher.getSchool());
-				test.setNo(no);
-				test.setPoint(points[i]);
-				updateTest.add(test);
+				test.setClassNum(student.getClassNum());// クラス情報を学生から取得
+				test.setSubject(subject);// 科目
+				test.setSchool(teacher.getSchool());// 所属学校
+				test.setNo(no);// テスト番号
+				test.setPoint(points[i]);// 点数
+				updateTest.add(test);// 登録リストに追加
 			}
 
+			// Daoを使用してテスト情報を保存
 			TestDao test_dao = new TestDao();
 			boolean result = test_dao.save(updateTest);
 
 			// boolean型の場合if(result)でおけ。
+			// 登録成功--->完了ページ
+			// 登録失敗--->エラーページへフォワード
 			if (result){
 				req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
 			} else {
@@ -84,6 +93,7 @@ public class TestRegistExecuteAction extends Action{
 			}
 
 		} catch (Exception e){
+			// エラーページのログ出力＆エラーページにフォワード
 			e.printStackTrace();
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
 		}
