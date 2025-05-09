@@ -21,6 +21,7 @@ import tool.Action;
 public class TestRegistAction extends Action{
 	public void execute(HttpServletRequest req, HttpServletResponse res
 			) throws Exception {
+
 		try {
 			// エラーメッセージの格納Map
 			Map<String, String> errors = new HashMap<>();
