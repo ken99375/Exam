@@ -65,7 +65,7 @@ public class TestRegistAction extends Action{
 
 			LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
 			 int year = todaysDate.getYear(); // 現在の年を取得
-			// 先生の所属する学校のクラスリストを持ってくる
+			// 先生の所属する学校のクラスリストを取得
 			ClassNumDao c_dao = new ClassNumDao();
 			List<String> c_list = c_dao.filter(teacher.getSchool());
 			if (c_list.isEmpty()) {
@@ -88,12 +88,16 @@ public class TestRegistAction extends Action{
 				return;
 			}
 
+			// JSPに渡す補助データをリクエストスコープに補助
 			req.setAttribute("c_list", c_list);
 			req.setAttribute("sub_list", sub_list);
 			req.setAttribute("ent_year_set", entYearSet);
 
+			// test.regist.jspにフォワード
 			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+
 		} catch (Exception e){
+			// エラーページのログ出力＆エラーページにフォワード
 			e.printStackTrace();
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
 		}

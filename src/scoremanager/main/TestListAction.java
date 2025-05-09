@@ -22,7 +22,7 @@ public class TestListAction extends Action{
 			) throws Exception {
 
 		try {
-			// エラーメッセージを保持するメソッドを初期化
+			// エラーメッセージを保持するMapを初期化
 			Map<String, String> errors = new HashMap<>();
 
 			// セッションからログイン情報(teacher)を取得する

@@ -22,15 +22,19 @@ public class TestRegistExecuteAction extends Action{
 	public void execute(HttpServletRequest req, HttpServletResponse res
 			) throws Exception {
 		try {
+			// エラーメッセージを保持するMapを初期化
 			Map<String, String> errors = new HashMap<>();
+			// セッションからユーザーデータ（teacher）を取得
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
 
-			// 学生番号、科目コード、テスト番号、点数をリスト形式で受け取る
+			// フォームから受取る情報（複数生徒の点数登録に対応）
 			String[] studentNos = req.getParameterValues("studentNo");
 			String subjectCds = req.getParameter("subjectCd"); // 科目コードとテスト番号は絞り込んでるから一意
 			int no = Integer.parseInt(req.getParameter("no"));
 			String[] pointStr = req.getParameterValues("po");
+
+
 			int[] points = new int[pointStr.length];
 			for (int i = 0; i < pointStr.length; i++){
 				try {
