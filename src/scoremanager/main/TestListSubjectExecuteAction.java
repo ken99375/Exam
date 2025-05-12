@@ -31,11 +31,11 @@ public class TestListSubjectExecuteAction extends Action {
 
 		 // フォーム入力取得
 		 // 入学年度
-		 String entYearStr = req.getParameter("f1");
+		 String entYearStr = req.getParameter("ent_year");
 		 // クラス番号
-		 String classNum = req.getParameter("f2");
+		 String classNum = req.getParameter("class_num");
 		 // 科目コード
-		 String subjectCd = req.getParameter("f3");
+		 String subjectCd = req.getParameter("cd");
 
 
 		 // 入力チェック用エラーメッセージ
@@ -66,6 +66,7 @@ public class TestListSubjectExecuteAction extends Action {
 		 SubjectDao sub_dao = new SubjectDao();
 		 Subject subject = sub_dao.get(subjectCd, teacher.getSchool());
 
+		 System.out.print(subject);
 	 // entYear
 	// classNum
 	// subject

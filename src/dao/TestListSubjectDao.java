@@ -67,7 +67,7 @@ public class TestListSubjectDao extends Dao{
 +" on s.no = t1.student_no and t1.school_cd = ? "
 + "and t1.subject_cd = ? and t1.class_num = ? and "
 +"  t1.no = '1'"
-+" where s.school_cd = ?  and s.ent_year = ?  and s.class_num = ? "
++" where s.school_cd = ?  and s.ent_year = ?  and s.class_num = ?"
 +" and (t1.point is not null or t2.point is not null)"
 +" order by s.no");
 

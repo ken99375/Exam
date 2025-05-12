@@ -60,6 +60,54 @@ public class SubjectDao extends Dao{
     	}
     }
     return subject;
+	}
+	 //所属校と科目コードで絞り込んで科目テーブルの一行を返す
+	public Subject allGet(String cd, School school) throws Exception{
+		// 科目インスタンスを初期化
+   	Subject subject = new Subject();
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+
+		try {
+   		// プリペアードステートメントにSQL文をセット
+   		statement = connection.prepareStatement("select * from subject where cd = ? and school_cd = ? ");
+   		// プリペアードステートメントに学生番号をバインド
+   		statement.setString(1, cd);
+   		statement.setString(2, school.getCd());
+   		// プリペアードステートメントを実行
+   		ResultSet rSet = statement.executeQuery();
+
+   		if (rSet.next()) {
+           	// 科目オブジェクトにselectの結果を設定
+           	subject.setCd(rSet.getString("cd"));
+           	subject.setName(rSet.getString("name"));
+           	subject.setSchool(school);
+   		} else {
+   			// リザルトセットが存在しない場合
+   			// 学生インスタンスにnullをセット
+   			subject = null;
+   		}
+   	} catch (Exception e) {
+   		throw e;
+   	} finally {
+   		// プリペアードステートメントを閉じる
+   		if (statement != null) {
+   			try {
+   				statement.close();
+   			} catch (SQLException sqle) {
+   				throw sqle;
+   		}
+   	}
+   	// コネクションを閉じる
+   	if (connection != null) {
+   		try {
+   			connection.close();
+   		} catch (SQLException sqle) {
+   			throw sqle;
+   		}
+   	}
+   }
+   return subject;
 }
 
 	// 所属校に登録された科目一覧を返すメソッド
@@ -134,7 +182,7 @@ public class SubjectDao extends Dao{
 
 	    try {
 	        // データベースから科目を取得
-	        Subject old = get(subject.getCd(), subject.getSchool());
+	        Subject old = allGet(subject.getCd(), subject.getSchool());
 	        System.out.println(old);
 
 	        if (old == null) {
