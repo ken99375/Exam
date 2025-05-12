@@ -169,7 +169,7 @@ public class SubjectDao extends Dao{
         return list;
 	}
 
-	// 科目の追加メソッド
+	// 科目の追加メソッド　
 	// アクションクラスで設定されたオブジェクトを使用して
 	// updateに当てはめる
 	public boolean save(Subject subject) throws Exception{

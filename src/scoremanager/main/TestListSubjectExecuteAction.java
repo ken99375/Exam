@@ -38,6 +38,7 @@ public class TestListSubjectExecuteAction extends Action {
 		 String subjectCd = req.getParameter("cd");
 
 
+
 		 // 入力チェック用エラーメッセージ
 		 int entYear = 0;
 		 Map<String, String> errors = new HashMap<>();
