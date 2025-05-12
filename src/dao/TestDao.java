@@ -118,20 +118,24 @@ public class TestDao extends Dao{
 	}
 
 	// 成績登録
-	public boolean save(Test test, Connection connection)throws SQLException{
-		String sql = ""
-				+ "update test set point = ? "
-				+ "where student_no = ? and subject_cd = ? "
-				+ "and school_cd = ? and no = ?";
-		try (PreparedStatement statement = connection.prepareStatement(sql)){
-			statement.setInt(1, test.getPoint());
-			statement.setString(2, test.getStudent().getNo());
-			statement.setString(3, test.getSubject().getCd());
-			statement.setString(4, test.getSchool().getCd());
-			statement.setInt(5, test.getNo());
-			int count = statement.executeUpdate();
-			return count > 0;
-		}
+	public boolean save(Test test, Connection connection) throws SQLException {
+		String sql = "MERGE INTO test (student_no, subject_cd, school_cd, no, point, class_num) " +
+	             "KEY (student_no, subject_cd, school_cd, no) " +
+	             "VALUES (?, ?, ?, ?, ?, ?)";
+	    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	        statement.setString(1, test.getStudent().getNo());
+	        statement.setString(2, test.getSubject().getCd());
+	        statement.setString(3, test.getSchool().getCd());
+	        statement.setInt(4, test.getNo());
+	        statement.setInt(5, test.getPoint());
+	        statement.setString(6, test.getClassNum());
+
+	        int count = statement.executeUpdate();
+	        System.out.println("✅ MERGE 実行成功: " + count + " rows affected");
+	        return count > 0;
+	    }
 	}
 
+
 }
+

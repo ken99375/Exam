@@ -5,6 +5,7 @@ public class Subject implements java.io.Serializable {
 	private School school;
 	private String cd;
 	private String name;
+	private boolean isAttend;
 
 
 	public School getSchool() {
@@ -24,5 +25,13 @@ public class Subject implements java.io.Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isAttend(){
+		return isAttend;
+	}
+
+	public void setAttend(boolean isAttend) {
+		this.isAttend = isAttend;
 	}
 }

@@ -25,7 +25,7 @@ public class SubjectDeleteExecuteAction extends Action{
 			subject.setSchool(teacher.getSchool());
 
 			SubjectDao dao = new SubjectDao();
-			boolean result = dao.delete(subject);
+			boolean result = dao.deleteAttend(subject);
 
 			if (result){
 				req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
