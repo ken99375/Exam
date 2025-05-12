@@ -210,6 +210,7 @@ public class SubjectDao extends Dao{
 	            statement.setString(3, subject.getCd());
 	        }
 	        // プリペアードステートメントを実行
+
 	        count = statement.executeUpdate();
 
 	    } catch (Exception e) {
