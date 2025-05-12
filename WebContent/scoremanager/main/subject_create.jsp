@@ -14,6 +14,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="student-f2-select">科目コード</label>
                         <input type="text" class=" form-control" placeholder="科目コードを入力してください" name="cd" required>
+                        <p>${errors.duplication}</p>
                     </div>
                     <p></p>
                     <div class="mb-3">
