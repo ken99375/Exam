@@ -25,6 +25,7 @@ public class TestListSubjectExecuteAction extends Action {
 	 HttpSession session = req.getSession();
 	 Teacher teacher = (Teacher)session.getAttribute("user");
 
+
 		 // ユーザ情報がない場合はエラーメッセージを出す。
 		 if (teacher != null) {
 			 String schoolCode = teacher.getSchool().getCd();
