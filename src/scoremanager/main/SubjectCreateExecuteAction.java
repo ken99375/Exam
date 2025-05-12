@@ -1,5 +1,8 @@
 package scoremanager.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +18,7 @@ public class SubjectCreateExecuteAction extends Action{
 		try{
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
+			Map<String, String> errors = new HashMap<>();
 
 			// jspで必須項目にしてるからいいと思うけど
 			// アクションクラス側でもパラメータ有り無しでエラー表示したい場合
@@ -30,13 +34,20 @@ public class SubjectCreateExecuteAction extends Action{
 			subject.setSchool(teacher.getSchool());
 
 			SubjectDao dao = new SubjectDao();
-			boolean result = dao.save(subject);
-
-			// boolean型の場合if(result)でおけ。
-			if (result){
-				req.getRequestDispatcher("subject_create_done.jsp").forward(req, res);
+			Subject duplication = dao.allGet(cd, teacher.getSchool());
+			if (duplication != null) {
+				errors.put("duplication", "科目コードが重複しています");
+				errorBack(req, res, errors, "subject_create.jsp");
+				return;
 			} else {
-				req.getRequestDispatcher("/error.jsp").forward(req, res);
+				boolean result = dao.save(subject);
+
+				// boolean型の場合if(result)でおけ。
+				if (result){
+					req.getRequestDispatcher("subject_create_done.jsp").forward(req, res);
+				} else {
+					req.getRequestDispatcher("/error.jsp").forward(req, res);
+				}
 			}
 		} catch (Exception e){
 //			req.getRequestDispatcher("/error.jsp").forward(req, res);
