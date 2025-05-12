@@ -22,7 +22,7 @@ public class SubjectDao extends Dao{
 
 		try {
     		// プリペアードステートメントにSQL文をセット
-    		statement = connection.prepareStatement("select * from subject where cd = ? and school_cd = ?");
+    		statement = connection.prepareStatement("select * from subject where cd = ? and school_cd = ? and is_attend = true");
     		// プリペアードステートメントに学生番号をバインド
     		statement.setString(1, cd);
     		statement.setString(2, school.getCd());
@@ -76,7 +76,7 @@ public class SubjectDao extends Dao{
         	// 接続の取得
         	connection = getConnection();
 
-            statement = connection.prepareStatement("select * from subject where school_cd = ?" + order);
+            statement = connection.prepareStatement("select * from subject where school_cd = ? and is_attend = true " + order);
             statement.setString(1, school.getCd());
 
             rSet = statement.executeQuery();
@@ -141,7 +141,7 @@ public class SubjectDao extends Dao{
 	            // 学生が存在しなかった場合
 	            // プリペアードステートメントにINSERT文をセット
 	            statement = connection.prepareStatement(
-	                    "insert into subject values(?, ?, ?) ");
+	                    "insert into subject(school_cd, cd, name) values(?, ?, ?) ");
 
 	            // プリペアードステートメントに値をバインド
 	            statement.setString(1, subject.getSchool().getCd());
@@ -152,7 +152,7 @@ public class SubjectDao extends Dao{
 	            // 科目が存在した場合
 	            // プリペアードステートメントにUPDATE文をセット
 	            statement = connection.prepareStatement(
-	                    "update subject set  name = ?  where school_cd = ? and cd = ?");
+	                    "update subject set  name = ?  is_attend = true where school_cd = ? and cd = ?");
 
 	            // プリペアードステートメントに値をバインド
 	            statement.setString(1, subject.getName());
@@ -207,6 +207,57 @@ public class SubjectDao extends Dao{
 	        statement.setString(1, subject.getSchool().getCd());
 	        statement.setString(2, subject.getCd());
 	        statement.setString(3, subject.getName());
+
+	        // プリペアードステートメントを実行
+	        count = statement.executeUpdate();
+
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        // プリペアードステートメントを閉じる
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+
+	        // コネクションを閉じる
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+
+
+	    if (count > 0) {
+	        // 実行件数が1件以上ある場合
+	        return true;
+	    } else {
+	        // 実行件数が0件の場合
+	        return false;
+	    }
+	}
+
+	// 科目の削除メソッド
+	// delete・update文って帰ってくるものは削除行数だけじゃなかったけ？
+	public boolean deleteAttend(Subject subject) throws Exception{
+		// コネクションを確立
+	    Connection connection = getConnection();
+	    // プリペアードステートメント
+	    PreparedStatement statement = null;
+	    // 実行件数
+	    int count = 0;
+
+	    try {
+	        statement = connection.prepareStatement("update subject set is_attend = false where school_cd = ? and cd = ?");
+	        statement.setString(1, subject.getSchool().getCd());
+	        statement.setString(2, subject.getCd());
+
 
 	        // プリペアードステートメントを実行
 	        count = statement.executeUpdate();
