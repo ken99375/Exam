@@ -203,6 +203,7 @@ public class SubjectDao extends Dao{
 	                    "update subject set  name = ?,  is_attend = true where school_cd = ? and cd = ?");
 
 
+
 	            // プリペアードステートメントに値をバインド
 	            statement.setString(1, subject.getName());
 	            statement.setString(2, subject.getSchool().getCd());
