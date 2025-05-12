@@ -12,6 +12,7 @@
         氏名：<strong>${studentName}</strong>（${studentNo}）
       </div>
 
+
       <c:choose>
         <c:when test="${not empty tests}">
           <table class="table table-hover mx-3">
