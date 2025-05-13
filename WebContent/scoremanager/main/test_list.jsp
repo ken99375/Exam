@@ -9,7 +9,10 @@
 
       <!-- 科目情報検索フォーム -->
       <form action="TestListSubjectExecute.action" method="get" class="mb-4">
-        <div class="row border mx-3 mb-3 py-2 align-items-center rounded">
+        <div class="row border mx-3 mb-0 py-2 h-50 align-items-center rounded">
+        <div class="col-2">
+      	<label class="form-label">科目情報</label>
+      	</div>
           <div class="col-2">
             <label for="f1" class="form-label">入学年度</label>
             <select id="f1" name="f1" class="form-select">
@@ -48,7 +51,10 @@
 
       <!-- 学生情報検索フォーム -->
       <form action="TestListStudentExecute.action" method="get" class="mb-4">
-        <div class="row border mx-3 mb-3 py-2 align-items-center rounded">
+        <div class="row border mx-3 mb-3 py-2 h-50 align-items-center rounded">
+        	<div class="col-2">
+      		<label class="form-label">学生情報</label>
+      		</div>
           <div class="col-4">
             <label class="form-label" for="subject-id-input">学生番号</label>
             <input type="text" id="studentNo" name="studentNo" class="form-control" placeholder="学生番号を入力してください" value="${studentNo}">
