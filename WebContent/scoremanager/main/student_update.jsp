@@ -11,19 +11,27 @@
                 <input type="hidden" name="no" value="${student.no}" />
 
                 <div class="mb-3">
-                    <label for="entYear" class="form-label">入学年度</label>
-                    <input type="text" class="form-control" id="entYear" name="entYear" value="${student.entYear}" />
+				    <label for="entYear" class="form-label">入学年度</label>
+				    <p class="form-control-plaintext">${student.entYear}</p>
+				    <input type="hidden" name="entYear" value="${student.entYear}" />
                 </div>
 
                 <div class="mb-3">
-                    <label for="no" class="form-label">学生番号</label>
-                    <input type="text" class="form-control" id="no" value="${student.no}" readonly />
+				    <label for="no_display" class="form-label">学生番号</label>
+				    <p class="form-control-plaintext">${student.no}</p>
+				    <input type="hidden" name="no" value="${student.no}" />
                 </div>
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">氏名</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${student.name}" />
-                </div>
+ 				<div class="mb-3">
+				    <label for="name" class="form-label">氏名</label>
+				    <input type="text" class="form-control" id="name" name="name"
+				           placeholder="氏名を入力してください"
+				           value="${student.name}" required />
+				    <c:if test="${not empty errors.name}">
+				        <div class="text-warning small mt-1">${errors.name}</div>
+				    </c:if>
+				</div>
+
 
                 <div class="mb-3">
                     <label for="classNum" class="form-label">クラス</label>
