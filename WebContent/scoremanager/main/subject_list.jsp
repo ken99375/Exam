@@ -10,29 +10,37 @@
     <c:param name="content">
         <section class="me-4">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">科目管理</h2>
+
+            <!-- 新規登録リンク（右寄せ） -->
             <div class="my-2 text-end px-4">
                 <a href="SubjectCreate.action">新規登録</a>
             </div>
 
+			<!-- 科目リスト表示 -->
             <c:choose>
                 <c:when test="${subject_list.size() > 0}">
                     <div>科目一覧：${subject_list.size()}件</div>
-                    <table class="table table-hover">
-                        <tr>
-                            <th>科目コード</th>
-                            <th>科目名</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <c:forEach var="subject" items="${subject_list}">
-                            <tr>
-                                <td>${subject.cd}</td>
-                                <td>${subject.name}</td>
-                                <td><a href = "SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
-                    			<td><a href = "SubjectDelete.action?cd=${subject.cd}">削除</a></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+						<table class="table table-hover">
+						    <thead>
+						        <tr>
+						            <th>科目コード</th>
+						            <th>科目名</th>
+						            <th class="text-end"></th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						        <c:forEach var="subject" items="${subject_list}">
+						            <tr>
+						                <td>${subject.cd}</td>
+						                <td class="ps-0">${subject.name}</td>
+						                <td class="text-end">
+						                    <a href="SubjectUpdate.action?cd=${subject.cd}" class="me-2">変更</a>
+						                    <a href="SubjectDelete.action?cd=${subject.cd}">削除</a>
+						                </td>
+						            </tr>
+						        </c:forEach>
+						    </tbody>
+						</table>
                 </c:when>
                 <c:otherwise>
                     <div>科目は登録されていません。</div>
