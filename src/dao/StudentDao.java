@@ -272,6 +272,41 @@ public class StudentDao extends Dao {
     return student;
 	}
 
+
+ // 学生番号と学校コードを指定して学生情報を取得する
+    public Student get(String no, String schoolCd) throws Exception {
+        Student student = null;
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            String sql = "SELECT * FROM student WHERE no = ? AND school_cd = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, no);
+            statement.setString(2, schoolCd);
+
+            ResultSet rSet = statement.executeQuery();
+            SchoolDao schoolDao = new SchoolDao();
+
+            if (rSet.next()) {
+                student = new Student();
+                student.setNo(rSet.getString("no"));
+                student.setName(rSet.getString("name"));
+                student.setEntYear(rSet.getInt("ent_year"));
+                student.setClassNum(rSet.getString("class_num"));
+                student.setAttend(rSet.getBoolean("is_attend"));
+                student.setSchool(schoolDao.get(rSet.getString("school_cd")));
+            }
+
+        } finally {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
+
+        return student;
+    }
+
+
 	// 学生インスタンスをデータベースに保存するメソッド
 	public boolean save(Student student) throws Exception {
 	    // コネクションを確立
@@ -346,7 +381,5 @@ public class StudentDao extends Dao {
 	        return false;
 	    }
 	}
-
-
 
 }
