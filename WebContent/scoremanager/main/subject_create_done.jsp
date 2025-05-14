@@ -4,7 +4,6 @@
 <c:import url="/common/base.jsp">
     <c:param name="title">得点管理システム - 登録完了</c:param>
     <c:param name="scripts"></c:param>
-
 <c:param name="content">
     <section class="no">
         <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目情報登録</h2>
