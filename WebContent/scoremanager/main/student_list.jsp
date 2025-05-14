@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/common/base.jsp">
+
     <c:param name="title">
         得点管理システム
     </c:param>
@@ -85,7 +86,7 @@
 		        </table>
 		    </c:when>
     		<c:otherwise>
-        		<div>学生情報が存在しませんでした。</div>
+        		<div>学生情報が存在しませんでした</div>
     		</c:otherwise>
 		</c:choose>
 	</section>

@@ -14,7 +14,6 @@
     		変更が完了しました。
 		</div>
 
-
         <div>
             <a href="SubjectList.action">科目一覧</a>
         </div>
