@@ -24,7 +24,7 @@
 						    <thead>
 						        <tr>
 						            <th>科目コード</th>
-						            <th>科目名</th>
+						            <th class="ps-5">科目名</th>
 						            <th class="text-end"></th>
 						        </tr>
 						    </thead>
@@ -32,10 +32,10 @@
 						        <c:forEach var="subject" items="${subject_list}">
 						            <tr>
 						                <td>${subject.cd}</td>
-						                <td class="ps-0">${subject.name}</td>
+						                <td class="ps-5">${subject.name}</td>
 						                <td class="text-end">
-						                    <a href="SubjectUpdate.action?cd=${subject.cd}" class="me-2">変更</a>
-						                    <a href="SubjectDelete.action?cd=${subject.cd}">削除</a>
+						                    <a href="SubjectUpdate.action?cd=${subject.cd}" style="margin-right: 100px;">変更</a>
+						                    <a href="SubjectDelete.action?cd=${subject.cd}"style="margin-right: 50px;">削除</a>
 						                </td>
 						            </tr>
 						        </c:forEach>
