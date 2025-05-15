@@ -30,7 +30,7 @@
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f2-select">学生番号</label>
-                        <input type="text" class=" form-control" placeholder="学生番号を入力してください" name="no" required value="${param.no }">
+                        <input type="text" class=" form-control" placeholder="学生番号を入力してください" name="no" required value="${param.no }" maxlength="10">
 						    <c:if test="${not empty errors.no}">
         						<div class="text-warning small mt-1">${errors.no}</div>
     						</c:if>
@@ -38,7 +38,7 @@
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f3-select">氏名</label>
-                        <input type="text" class=" form-control" placeholder="氏名を入力してください" name="name" required value="${param.name }">
+                        <input type="text" class=" form-control" placeholder="氏名を入力してください" name="name" required value="${param.name }" maxlength="10">
                             <c:if test="${not empty errors.name}">
 						        <div class="text-warning small mt-1">${errors.name}</div>
 						    </c:if>
