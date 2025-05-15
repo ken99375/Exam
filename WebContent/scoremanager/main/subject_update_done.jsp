@@ -11,7 +11,7 @@
 
 		<div class="alert" role="alert"
      		style="display: block; padding: 5px 10px; border-radius: 0; text-align: center; color: black; font-weight: normal; background-color: #b7dfc1;">
-    		変更が完了しました。
+    		変更が完了しました
 		</div>
 
         <div>
