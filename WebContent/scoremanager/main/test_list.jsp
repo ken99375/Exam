@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <c:import url="/common/base.jsp">
-  <c:param name="title">成績参照</c:param>
+
+  <c:param name="title">
+  成績参照
+  </c:param>
   <c:param name="scripts"></c:param>
   <c:param name="content">
     <section class="me-4">
-
+		<h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
       <!-- 科目情報検索フォーム -->
       <form action="TestListSubjectExecute.action" method="get" class="mb-4">
         <div class="row border mx-3 mb-0 py-2 h-50 align-items-center rounded">
