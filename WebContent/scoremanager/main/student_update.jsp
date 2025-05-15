@@ -20,14 +20,14 @@
                 <div class="mb-3">
 				    <label for="no_display" class="form-label">学生番号</label>
 				    <p class="form-control-plaintext">${student.no}</p>
-				    <input type="hidden" name="no" value="${student.no}" />
+				    <input type="hidden" name="no" value="${student.no}"/>
                 </div>
 
  				<div class="mb-3">
 				    <label for="name" class="form-label">氏名</label>
 				    <input type="text" class="form-control" id="name" name="name"
 				           placeholder="氏名を入力してください"
-				           value="${student.name}" required />
+				           value="${student.name}" required maxlength="10"/>
 				    <c:if test="${not empty errors.name}">
 				        <div class="text-warning small mt-1">${errors.name}</div>
 				    </c:if>
