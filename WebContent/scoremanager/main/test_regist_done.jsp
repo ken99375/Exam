@@ -9,14 +9,20 @@
     <section class="no">
         <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
-        <div class="alert alert-success" role="alert" style="text-align:center">
+        <div class="alert" role="alert"
+        		style="display: block; padding: 5px 10px; border-radius: 0; text-align: center; color: black; font-weight: normal; background-color: #b7dfc1;">
             登録が完了しました
         </div>
+        	<br/>
+			<br/>
+			<br/>
 
-        <div>
-            <button class="btn btn-secondary" onclick="history.back()">戻る</button>
-            <a href="TestList.action" class="btn btn-primary ms-2">成績参照</a>
-        </div>
+       <div class="mb-3">
+            <a href="TestRegist.action" style="margin-right: 40px;">戻る</a>
+            <a href="TestList.action">成績参照</a>
+       </div>
+
+
     </section>
 </c:param>
 </c:import>
