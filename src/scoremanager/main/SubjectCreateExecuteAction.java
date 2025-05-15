@@ -20,13 +20,27 @@ public class SubjectCreateExecuteAction extends Action{
 			Teacher teacher = (Teacher)session.getAttribute("user");
 			Map<String, String> errors = new HashMap<>();
 
-			// jspで必須項目にしてるからいいと思うけど
-			// アクションクラス側でもパラメータ有り無しでエラー表示したい場合
-			// String cd = "";
-			// String name = "";
 			String cd = req.getParameter("cd");
 			String name = req.getParameter("name");
 			// この後に条件分岐でエラー文字設定と同じページに戻る処理
+            // 入力バリデーション
+            if (cd == null || cd.trim().isEmpty()) {
+                errors.put("cd", "科目コードを入力してください。");
+            } else if (cd.trim().length() != 3) {
+                errors.put("cd", "科目コードは3文字で入力してください。");
+
+            }
+            if (name == null || name.trim().isEmpty()) {
+                errors.put("name", "科目名を入力してください。");
+            }
+            if (!errors.isEmpty()) {
+                // 入力値の再セット
+                req.setAttribute("cd", cd);
+                req.setAttribute("name", name);
+                req.setAttribute("errors", errors);
+                req.getRequestDispatcher("subject_create.jsp").forward(req, res);
+                return;
+            }
 
 			Subject subject = new Subject();
 			subject.setCd(cd);
@@ -35,11 +49,15 @@ public class SubjectCreateExecuteAction extends Action{
 
 			SubjectDao dao = new SubjectDao();
 			Subject duplication = dao.allGet(cd, teacher.getSchool());
+
 			if (duplication != null) {
-				errors.put("duplication", "科目コードが重複しています");
-				errorBack(req, res, errors, "subject_create.jsp");
+                errors.put("duplication", "科目コードが重複しています。");
+                req.setAttribute("cd", cd);
+                req.setAttribute("name", name);
+                req.setAttribute("errors", errors);
+                req.getRequestDispatcher("subject_create.jsp").forward(req, res);
 				return;
-			} else {
+			}
 				boolean result = dao.save(subject);
 
 				// boolean型の場合if(result)でおけ。
@@ -48,9 +66,9 @@ public class SubjectCreateExecuteAction extends Action{
 				} else {
 					req.getRequestDispatcher("/error.jsp").forward(req, res);
 				}
-			}
+
 		} catch (Exception e){
-//			req.getRequestDispatcher("/error.jsp").forward(req, res);
+			req.getRequestDispatcher("/error.jsp").forward(req, res);
 			e.printStackTrace();
 		}
 	}
