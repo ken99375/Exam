@@ -156,6 +156,33 @@ public class StudentDao extends Dao {
 
         return list;
     }
+    // 学校の一覧（学校、クラス）を指定して表示する
+ // クラスのみ指定での検索用（全年度対象）
+    public List<Student> filter(School school, String classNum, boolean isAttend) throws Exception {
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        ResultSet rSet = null;
+        List<Student> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM student WHERE school_cd = ? AND class_num = ?";
+        if (isAttend) {
+            sql += " AND is_attend = true";
+        }
+        sql += " ORDER BY no ASC";
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, school.getCd());
+            statement.setString(2, classNum);
+            rSet = statement.executeQuery();
+            list = postFilter(rSet, school);
+        } finally {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
+        return list;
+    }
+
 
     // 学生の一覧(学校、在学フラグ)を指定して表示する
     public List<Student> filter(School school, boolean isAttend) throws Exception {
@@ -271,6 +298,68 @@ public class StudentDao extends Dao {
     }
     return student;
 	}
+
+    // 在学中フラグのみ絞り込める
+ // 在学中の学生のみを絞り込んで取得する
+    public List<Student> filter(School school) throws Exception {
+        List<Student> list = new ArrayList<>();
+
+        // DB接続
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            // SQL文: 学校コードと在学中フラグで絞り込み
+            String sql = "SELECT * FROM student WHERE school_cd = ? AND is_attend = true ORDER BY ent_year, class_num, no";
+
+            // ステートメントの準備
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, school.getCd());
+
+            // 実行
+            ResultSet result = statement.executeQuery();
+
+            // 学校情報は引数から設定するので、SchoolDaoは不要
+            while (result.next()) {
+                Student student = new Student();
+
+                student.setNo(result.getString("no"));
+                student.setName(result.getString("name"));
+                student.setEntYear(result.getInt("ent_year"));
+                student.setClassNum(result.getString("class_num"));
+                student.setAttend(result.getBoolean("is_attend"));
+                student.setSchool(school); // 引数からセット
+
+                list.add(student);
+            }
+
+            result.close(); // リザルトセットのクローズ
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            // ステートメントのクローズ
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+
+            // コネクションのクローズ
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+
+        return list;
+    }
+
 
 
  // 学生番号と学校コードを指定して学生情報を取得する
