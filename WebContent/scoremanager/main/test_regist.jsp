@@ -24,7 +24,7 @@
                             </c:forEach>
                         </select>
                         <c:if test="${errors.f1 != null}">
-                            <div class="text-danger small">${errors.f1}</div>
+                            <div class="text-warning small mt-1">${errors.f1}</div>
                         </c:if>
                     </div>
                     <div class="col-2">
@@ -37,7 +37,7 @@
                             </c:forEach>
                         </select>
                         <c:if test="${errors.f2 != null}">
-                            <div class="text-danger small">${errors.f2}</div>
+                            <div class="text-warning small mt-1">${errors.f2}</div>
                         </c:if>
                     </div>
                     <div class="col-4">
@@ -49,7 +49,7 @@
                             </c:forEach>
                         </select>
                         <c:if test="${errors.f3 !=null }">
-                        	<div class="text-danger small">${errors.f3 }</div>
+                        	<div class="text-warning small mt-1">${errors.f3 }</div>
                         </c:if>
 
 
@@ -62,7 +62,7 @@
                             <option value = "2">2</option>
                         </select>
                         <c:if test="${errors.f4 != null}">
-                            <div class="text-danger small">${errors.f4}</div>
+                            <div class="text-warning small mt-1">${errors.f4}</div>
                         </c:if>
 
                     </div>
@@ -96,11 +96,15 @@
 					                    <td>${test.classNum}</td>
 			                    		<td>${test.student.no}<input type = "hidden" name = "studentNo" value = "${test.student.no}" /></td>
 			                    		<td>${test.student.name}</td>
-			                    		<td>
-			                    			<input type = "text" name = "po" value = "${test.point}">
-			                    			<c:set var = "key" value= "${'po'}${st.index}" />
-			                    			<c:if test = "${not empty errors[key]}"><span class ="text-danger">${errors[key]}</span></c:if>
-			                    		</td>
+											<td>
+											    <div>
+											        <input type="text" name="po" value="${test.point}">
+											        <c:set var="key" value="${'po'}${st.index}" />
+											        <c:if test="${not empty errors[key]}">
+											            <div class="text-warning small mt-1">${errors[key]}</div>
+											        </c:if>
+											    </div>
+											</td>
 					                </tr>
 					                <input type = "hidden" name = "subjectCd" value = "${test.subject.cd}" >
 			                    	<input type = "hidden" name = "no" value = "${test.no}" >

@@ -10,7 +10,7 @@
         <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
         <div class="alert alert-success" role="alert" style="text-align:center">
-            登録が完了しました。
+            登録が完了しました
         </div>
 
         <div>
