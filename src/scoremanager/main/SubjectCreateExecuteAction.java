@@ -26,6 +26,9 @@ public class SubjectCreateExecuteAction extends Action{
             // 入力バリデーション
             if (cd == null || cd.trim().isEmpty()) {
                 errors.put("cd", "科目コードを入力してください。");
+            } else if (cd.trim().length() != 3) {
+                errors.put("cd", "科目コードは3文字で入力してください。");
+
             }
             if (name == null || name.trim().isEmpty()) {
                 errors.put("name", "科目名を入力してください。");
@@ -48,7 +51,7 @@ public class SubjectCreateExecuteAction extends Action{
 			Subject duplication = dao.allGet(cd, teacher.getSchool());
 
 			if (duplication != null) {
-                errors.put("duplication", "科目コードが既に登録されています。");
+                errors.put("duplication", "科目コードが重複しています。");
                 req.setAttribute("cd", cd);
                 req.setAttribute("name", name);
                 req.setAttribute("errors", errors);

@@ -14,13 +14,19 @@
                 <div class="mx-3 mb-3 py-2 rounded" id="registrationForm">
                     <div class="mb-3">
                         <label class="form-label" for="student-f2-select">科目コード</label>
-                        <input type="text" class=" form-control" placeholder="科目コードを入力してください" name="cd" required>
-                        <p>${errors.duplication}</p>
+                        <input type="text" class=" form-control" placeholder="科目コードを入力してください" name="cd"maxlength="3" required>
+                        <c:if test="${not empty errors.cd}">
+						  <div class="text-warning small mt-1">${errors.cd}</div>
+						</c:if>
+
+						  <c:if test="${not empty errors.duplication}">
+						    <div class="text-warning small mt-1">${errors.duplication}</div>
+						  </c:if>
                     </div>
                     <p></p>
                     <div class="mb-3">
                         <label class="form-label" for="student-f3-select">科目名</label>
-                        <input type="text" class=" form-control" placeholder="科目名を入力してください" name="name" required>
+                        <input type="text" class=" form-control" placeholder="科目名を入力してください" name="name" maxlength="20"required>
                     </div>
                     <p></p>
                     <div class="mb-3 text-left">
