@@ -17,14 +17,14 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label">科目名</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="科目名を入力してください" required />
+                    <input type="text" class="form-control" id="name" name="name" value="${subject.name }" placeholder="科目名を入力してください" required />
                 </div>
 
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">変更</button>
                 </div>
                 <div>
-                    <a href="SubjecttList.action">戻る</a>
+                    <a href="SubjectList.action">戻る</a>
                 </div>
             </form>
         </section>
