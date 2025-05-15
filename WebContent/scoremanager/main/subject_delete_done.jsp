@@ -10,8 +10,15 @@
 		<section class ="me-4">
 		<h2 class ="h3 mb-3 fw-nor
 			ma bg-secondary bg-opacity-10 py-2 px-4">科目情報変更</h2>
-			<p>削除が完了しました</p>
 
+			<div class="alert" role="alert"
+     		style="display: block; padding: 5px 10px; border-radius: 0; text-align: center; color: black; font-weight: normal; background-color: #b7dfc1;">
+    		削除が完了しました
+		</div>
+
+			<br/>
+			<br/>
+			<br/>
 
 			<a href = "SubjectList.action">科目一覧</a>
 		</section>
