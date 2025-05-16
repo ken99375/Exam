@@ -77,13 +77,14 @@ public class StudentListAction extends Action {
 		} else if (entYear != 0 && classNum.equals("0")) {
 		    // 入学年度のみ指定
 		    students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-		} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
-		    // 指定なしの場合
-		    students = sDao.filter(teacher.getSchool(), isAttend);
+		} else if (!classNum.equals("0")) {
+		    // クラスのみ指定（入学年度なし）
+		    students = sDao.filter(teacher.getSchool(), classNum, isAttend); // このDAOメソッドが必要
+		} else if (isAttend) {
+		    // 在学中のみ指定（入学年度・クラスともに未指定）
+		    students = sDao.filter(teacher.getSchool());
 		} else {
-		    errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-		    req.setAttribute("errors", errors);
-		    // 全学生情報を取得
+		    // 条件未指定（または在学中のみ）
 		    students = sDao.filter(teacher.getSchool(), isAttend);
 		}
 
