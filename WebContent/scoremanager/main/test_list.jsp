@@ -52,14 +52,14 @@
       </form>
 
       <!-- 学生情報検索フォーム -->
-      <form action="TestListStudentExecute.action" method="get" class="mb-4">
+      <form action="<c:url value='/TestListStudentExecute.action'/>" method="get" class="mb-4">
         <div class="row border mx-3 mb-3 py-2 h-50 align-items-center rounded">
         	<div class="col-2">
       		<label class="form-label">学生情報</label>
       		</div>
           <div class="col-4">
             <label class="form-label" for="subject-id-input">学生番号</label>
-            <input type="text" id="studentNo" name="studentNo" class="form-control" placeholder="学生番号を入力してください" value="${studentNo}">
+            <input type="text" id="studentNo" name="studentNo" class="form-control" placeholder="学生番号を入力してください" value="${studentNo}" maxlength="10">
           </div>
           <div class="col-2 text-center">
             <button type="submit" class="btn btn-secondary">検索</button>
