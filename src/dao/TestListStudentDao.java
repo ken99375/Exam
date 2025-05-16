@@ -12,7 +12,6 @@ import bean.Student;
 import bean.Subject;
 import bean.TestListStudent;
 
-
 public class TestListStudentDao extends Dao{
 	private String baseSql = "select * from test where student_no =? and school_cd = ?";
 
