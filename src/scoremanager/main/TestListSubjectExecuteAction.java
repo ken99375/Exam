@@ -32,11 +32,11 @@ public class TestListSubjectExecuteAction extends Action {
 
 		 // フォーム入力取得
 		 // 入学年度
-		 String entYearStr = req.getParameter("ent_year");
+		 String entYearStr = req.getParameter("f1");
 		 // クラス番号
-		 String classNum = req.getParameter("class_num");
+		 String classNum = req.getParameter("f2");
 		 // 科目コード
-		 String subjectCd = req.getParameter("cd");
+		 String subjectCd = req.getParameter("f3");
 
 
 
