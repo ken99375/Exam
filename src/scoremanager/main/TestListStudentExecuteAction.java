@@ -68,8 +68,10 @@ public class TestListStudentExecuteAction extends Action{
 
 			// 特定した学生で成績をとってくる
 			List<TestListStudent> stu_list = tls_dao.filter(student);
-			if (stu_list == null){
-				errors.put("ets2", "この学生のテスト履歴はありません");
+			if (stu_list == null || stu_list.isEmpty()){
+				System.out.println("生徒はいるが成績がない生徒");
+				req.setAttribute("student", student);
+				errors.put("ets2", "成績情報鵜が存在しませんでした");
 			}
 			// エラー文字設定されたとき元のページへ戻る
 			if (!errors.isEmpty()){
