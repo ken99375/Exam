@@ -64,6 +64,7 @@
                     </div>
             	</div>
             </form>
+            <p class="text-info">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
 	</section>
    </c:param>
 </c:import>

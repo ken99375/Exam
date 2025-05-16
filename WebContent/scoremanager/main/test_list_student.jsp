@@ -67,19 +67,17 @@
             		</div>
                     <div class="col-2 text-center">
                         <input type = "submit" class="btn btn-secondary" id="filter-button" value = "検索">
-                    </div><br><br>
-                    <div class="col-6"><p class = "text-warning">${errors.ets1}</p></div>
-                    <div class="col-6"><p class = "text-warning">${errors.ets2}</p></div>
+                    </div>
             	</div>
             </form>
             <hr>
            <c:if test="${not empty errors.ets1}">
-           	<div class = "col-3">学生コード：${param.cd}</div>
-			  <p class="text-danger">${errors.ets1}</p>
+           	<div class = "col-3">氏名：大原一郎（${param.cd}）</div>
+			  <p>${errors.ets1}</p>
 			</c:if>
 			<c:if test = "${not empty errors.etsub1}">
-		    	<div class ="col-3">科目：${item}(${param.cd})</div>
-		    	<p class="text-danger">${errors.etsub1}</p>
+
+		    	<p>${errors.etsub1}</p>
 		    </c:if>
 		<c:choose>
     		<c:when test="${stu_list.size() > 0}">
@@ -102,7 +100,7 @@
 		        </table>
 		    </c:when>
 		    <c:when test="${sub_li.size() > 0}">
-		    	<p>科目：${item}(${param.cd})</p>
+		    	<p>科目：${item}</p>
 		    	<table class="table table-hover">
 		            <tr>
 		                <th>入学年度</th>

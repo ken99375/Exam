@@ -72,7 +72,7 @@ public class TestListSubjectExecuteAction extends Action{
 			TestListSubjectDao tl_sub_dao = new TestListSubjectDao();
 			List<TestListSubject> sub_li = tl_sub_dao.filter(entYear, classNum, subject, teacher.getSchool());
 			if (sub_li.isEmpty()) {
-				errors.put("etsub1", "この科目のテスト履歴はありません");
+				errors.put("etsub1", "学生情報が存在しませんでした");
 			}
 			// エラー文字設定されたとき元のページへ戻る
 			if (!errors.isEmpty()){

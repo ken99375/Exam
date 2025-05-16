@@ -60,7 +60,7 @@ public class TestListStudentExecuteAction extends Action{
 			Student student = stu_dao.get(stu_cd);
 			req.setAttribute("tes", "学生");
 			if (student == null){
-				errors.put("ets1", "この学生のテスト履歴はありません");
+				errors.put("ets1", "成績情報が存在しませんでした");
 				req.setAttribute("errors", errors);
 				errorBack(req, res, errors, "test_list_student.jsp");
 				return;
