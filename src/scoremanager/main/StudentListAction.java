@@ -24,6 +24,7 @@ public class StudentListAction extends Action {
 		 HttpSession session = req.getSession();
 		 Teacher teacher = (Teacher)session.getAttribute("user");
 
+
 //			Connection conn = (Connection) session.getAttribute("conn");
 //
 //			 // 接続情報を取得して表示
