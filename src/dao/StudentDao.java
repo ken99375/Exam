@@ -110,14 +110,14 @@ public class StudentDao extends Dao {
         // リザルトセット
         ResultSet rSet = null;
         // SQL文の条件
-        String condition = "and ent_year = ?";
+        String condition = " and ent_year = ?";
         // SQL文のソート
-        String order = "order by no asc";
+        String order = " order by no asc";
         // SQL文の在学フラグ
         String conditionIsAttend = "";
         // 在学フラグがtrueだった場合
         if (isAttend) {
-            conditionIsAttend = "and is_attend = true";
+            conditionIsAttend = " and is_attend = true";
         }
 
         try {

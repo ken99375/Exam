@@ -56,7 +56,7 @@ public class StudentListAction extends Action {
 			    req.setAttribute("f3", isAttendStr);
 			}
 		 // ビジネスロジック 4
-		 if (entYearStr != null) {
+		 if (entYearStr != null && !entYearStr.isEmpty()) {
 			 // 数値に変換
 			 entYear = Integer.parseInt(entYearStr);
 		 }
@@ -77,7 +77,7 @@ public class StudentListAction extends Action {
 		} else if (entYear != 0 && classNum.equals("0")) {
 		    // 入学年度のみ指定
 		    students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-		} else if (!classNum.equals("0")) {
+		} else if (classNum != null && !classNum.equals("0")) {
 		    // クラスのみ指定（入学年度なし）
 		    students = sDao.filter(teacher.getSchool(), classNum, isAttend); // このDAOメソッドが必要
 		} else if (isAttend) {
