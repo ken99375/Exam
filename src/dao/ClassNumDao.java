@@ -33,7 +33,7 @@ public class ClassNumDao extends Dao {
                 // リザルトセットが存在する場合
                 // クラス番号インスタンスに検索結果をセット
             	classNum.setName(rSet.getString("name"));
-                classNum.setClass_num(rSet.getString("class_num"));
+                classNum.setClassNum(rSet.getString("class_num"));
                 classNum.setSchool(sDao.get(rSet.getString("school_cd")));
             } else {
                 // リザルトセットが存在しない場合
@@ -83,7 +83,7 @@ public class ClassNumDao extends Dao {
                 ClassNum classNum = new ClassNum();
                 classNum.setSchool(school);
                 classNum.setName(rSet.getString("name"));
-                classNum.setClass_num(rSet.getString("class_num"));
+                classNum.setClassNum(rSet.getString("class_num"));
                 list.add(classNum);
             }
         } catch (Exception e) {

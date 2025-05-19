@@ -24,8 +24,8 @@
 		            </tr>
             		<c:forEach var="classItem" items="${c_list}">
 		                <tr>
-		                    <td>${classItem}</td>
-		                    <td>ー</td>
+		                    <td>${classItem.classNum}</td>
+		                    <td>${classItem.name}</td>
 
 		                </tr>
 		            </c:forEach>
