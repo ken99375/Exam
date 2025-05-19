@@ -57,7 +57,7 @@
             		<div class="col-2">学生情報</div>
             		<div class="col-4">
             		<label class="form-label" for="student-f2-select">学生番号</label>
-            		<input class="form-control" type = "text" name ="cd" placeholder="学生番号を入力してください">
+            		<input class="form-control" type = "text" name ="cd" placeholder="学生番号を入力してください" required>
             		</div>
                     <div class="col-2 text-center">
                         <input type = "submit" class="btn btn-secondary" id="filter-button" value = "検索">
