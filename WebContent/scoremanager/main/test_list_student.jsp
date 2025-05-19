@@ -75,6 +75,10 @@
            	<div class = "col-3">氏名：大原一郎（${param.cd}）</div>
 			  <p>${errors.ets1}</p>
 			</c:if>
+			<c:if test="${not empty errors.ets2}">
+           	<div class = "col-3">氏名：${student.name}（${param.cd}）</div>
+			  <p>${errors.ets2}</p>
+			</c:if>
 			<c:if test = "${not empty errors.etsub1}">
 
 		    	<p>${errors.etsub1}</p>
