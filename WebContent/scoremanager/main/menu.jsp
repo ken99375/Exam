@@ -39,6 +39,10 @@
                     style="height: 10rem; background-color: #ddb;">
                    <a href="ClassList.action">クラス管理</a>
                </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/ken99375/Exam.git
            </div>
        </section>
    </c:param>
