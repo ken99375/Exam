@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ClassNum;
 import bean.Teacher;
 import dao.ClassNumDao;
 import tool.Action;
@@ -18,7 +19,9 @@ public class ClassListAction extends Action{
 			Teacher teacher = (Teacher)session.getAttribute("user");
 			ClassNumDao c_dao = new ClassNumDao();
 
-			List<String> c_list = c_dao.filter(teacher.getSchool());
+
+			List<ClassNum> c_list = c_dao.filter(teacher.getSchool());
+
 			req.setAttribute("c_list", c_list);
 
 			req.getRequestDispatcher("class_list.jsp").forward(req, res);

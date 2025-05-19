@@ -71,7 +71,7 @@ public class TestListStudentExecuteAction extends Action{
 			if (stu_list == null || stu_list.isEmpty()){
 				System.out.println("生徒はいるが成績がない生徒");
 				req.setAttribute("student", student);
-				errors.put("ets2", "成績情報鵜が存在しませんでした");
+				errors.put("ets2", "成績情情報が存在しませんでした");
 			}
 			// エラー文字設定されたとき元のページへ戻る
 			if (!errors.isEmpty()){
