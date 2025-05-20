@@ -16,6 +16,12 @@
     				<input type="hidden" class="form-control" id="cd" name="cd" value="${subject.cd}" />
 				</div>
 
+				<c:if test="${not empty errors['dele']}">
+					  <div class="mt-2 text-warning">
+					    ${errors['filter']}
+					  </div>
+				</c:if>
+
                 <div class="mb-3">
                     <label for="name" class="form-label">科目名</label>
                     <input type="text" class="form-control" id="name" name="name" value="${subject.name }" placeholder="科目名を入力してください" required maxlength="20"/>

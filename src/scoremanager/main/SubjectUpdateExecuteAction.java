@@ -1,5 +1,8 @@
 package scoremanager.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +18,7 @@ public class SubjectUpdateExecuteAction extends Action{
 		try {
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
+			Map<String, String> errors = new HashMap<>();
 
 			String cd = req.getParameter("cd");
 			String name = req.getParameter("name");
@@ -25,6 +29,15 @@ public class SubjectUpdateExecuteAction extends Action{
 			subject.setSchool(teacher.getSchool());
 
 			SubjectDao dao = new SubjectDao();
+			// 別画面で削除されていた場合のチェック機能
+			Subject sub = dao.get(cd, teacher.getSchool());
+			if (sub == null) {
+				errors.put("dele", "科目が存在していません");
+				req.setAttribute("errors", errors);
+				errorBack(req, res, errors, "subject_update.jsp");
+				return;
+			}
+			
 			boolean result = dao.save(subject);
 
 			// boolean型の場合if(result)でおけ。
