@@ -23,6 +23,8 @@
                                 <%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
                                 <option value="${year }" <c:if test="${year == f1 }">selected</c:if>>${year }</option>
                             </c:forEach>
+
+
                         </select>
                     </div>
                     <div class="col-2">
@@ -46,10 +48,15 @@
                         </select>
                     </div>
 
+
                     <div class="col-2 text-center">
                         <button class="btn btn-secondary" id="filter-button">検索</button>
                     </div>
-                    <div class="mt-2 text-warning">${errors.get("f1")}</div>
+                    <c:if test="${not empty errors['filter']}">
+					  <div class="mt-2 text-warning">
+					    ${errors['filter']}
+					  </div>
+					</c:if>
                 </div>
             </form>
             <form action = "TestListStudentExecute.action"method="post">

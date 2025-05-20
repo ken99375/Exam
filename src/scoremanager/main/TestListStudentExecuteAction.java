@@ -34,6 +34,7 @@ public class TestListStudentExecuteAction extends Action{
 			ClassNumDao c_dao = new ClassNumDao();
 			List<ClassNum> c_list = c_dao.filter(teacher.getSchool());
 			if (c_list.isEmpty()) {
+
 				errors.put("c_error", "クラスが存在しません");
 			}
 			// 先生の所属する学校の科目データを持ってくる

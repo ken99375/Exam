@@ -28,12 +28,7 @@ public class TestRegistExecuteAction extends Action {
             HttpSession session = req.getSession();
             Teacher teacher = (Teacher) session.getAttribute("user");
 
-            // フォームから取得するパラメータ
-            String[] studentNos = req.getParameterValues("studentNo");
-            String[] pointStrs = req.getParameterValues("po");
-            String[] testNos = req.getParameterValues("no");
-
-            // 科目コード（cd）は共通なので1件だけ取得
+         // 科目コード（cd）は共通なので1件だけ取得
             String subjectCd = req.getParameter("cd");
 
             // 検索条件（エラー時の戻り先用）
@@ -42,10 +37,13 @@ public class TestRegistExecuteAction extends Action {
             String times = req.getParameter("times");
 
             int entYear = 0;
+
+
 			// パラメータエラーチェック
-			if (entYearStr == null || entYearStr.trim().isEmpty() ||
-					classNum   == null || classNum.trim().isEmpty() ||
-					subjectCd  == null || subjectCd.trim().isEmpty() || times == null || times.trim().isEmpty()){
+			if (entYearStr == null || entYearStr.trim().isEmpty() || "0".equals(entYearStr)
+					  || classNum   == null || classNum.trim().isEmpty()   || "0".equals(classNum)
+					  || subjectCd  == null || subjectCd.trim().isEmpty()  || "0".equals(subjectCd)
+					  || times      == null || times.trim().isEmpty()      || "0".equals(times)){
 				errors.put("filter", "入学年度とクラスと科目と回数を選択してください");
 				String backUrl = String.format("TestRegist.action?ent_year=%s&class_num=%s&cd=%s&times=%s",
                         entYear, classNum, subjectCd, times);
@@ -54,6 +52,12 @@ public class TestRegistExecuteAction extends Action {
 			} else {
 				entYear = Integer.parseInt(entYearStr);
 			}
+            // フォームから取得するパラメータ
+            String[] studentNos = req.getParameterValues("studentNo");
+            String[] pointStrs = req.getParameterValues("po");
+            String[] testNos = req.getParameterValues("no");
+
+
             // ログ出力：受信データ確認
             System.out.println("=== フォームから受信したデータ ===");
             System.out.println("studentNos: " + Arrays.toString(studentNos));

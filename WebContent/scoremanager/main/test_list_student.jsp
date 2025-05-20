@@ -15,6 +15,7 @@
 
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                 <div class="col-2">科目情報</div>
+
                     <div class="col-2">
                         <label class="form-label" for="student-f1-select">入学年度</label>
                         <select class="form-select" id="student-f1-select" name="ent_year">

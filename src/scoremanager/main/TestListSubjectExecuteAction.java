@@ -27,6 +27,7 @@ public class TestListSubjectExecuteAction extends Action{
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
 			SubjectDao dao = new SubjectDao();
+
 			req.setAttribute("tes", "科目");
 			String entYearStr = req.getParameter("ent_year");
 			String classNum = req.getParameter("class_num");
@@ -61,7 +62,7 @@ public class TestListSubjectExecuteAction extends Action{
 					classNum   == null || classNum.trim().isEmpty() ||
 					cd  == null || cd.trim().isEmpty()){
 				errors.put("filter", "入学年度とクラスと科目を選択してください");
-				errorBack(req, res, errors, "test_list_student.jsp");
+				errorBack(req, res, errors, "test_list.jsp");
 				return;
 			} else {
 				entYear = Integer.parseInt(entYearStr);
