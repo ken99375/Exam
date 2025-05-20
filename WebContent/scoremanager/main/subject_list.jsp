@@ -44,7 +44,16 @@
 						</table>
                 </c:when>
                 <c:otherwise>
-                    <div>科目は登録されていません。</div>
+                    <table class="table table-hover">
+						    <thead>
+						        <tr>
+						            <th>科目コード</th>
+						            <th class="ps-5">科目名</th>
+						            <th class="text-end"></th>
+						        </tr>
+						    </thead>
+
+						</table>
                 </c:otherwise>
             </c:choose>
         </section>

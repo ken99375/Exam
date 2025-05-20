@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ClassNum;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -43,7 +44,7 @@ public class StudentCreateExecuteAction extends Action {
 
             // クラス番号リストをDBから取得
             ClassNumDao classNumDao = new ClassNumDao();
-            List<String> classNumList = classNumDao.filter(teacher.getSchool());
+            List<ClassNum> classNumList = classNumDao.filter(teacher.getSchool());
             req.setAttribute("class_num_set", classNumList);
         } catch (Exception e) {
             e.printStackTrace(); // ログ出力のみ（画面表示は続行）

@@ -31,7 +31,7 @@
 							<option value="">------</option>
                             <c:forEach var="num" items="${c_list}">
                                 <%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-                                <option value="${num }" <c:if test="${num == f2 }">selected</c:if>>${num }</option>
+                                <option value="${num.classNum }" <c:if test="${num.classNum == f2 }">selected</c:if>>${num.classNum }</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -57,7 +57,7 @@
             		<div class="col-2">学生情報</div>
             		<div class="col-4">
             		<label class="form-label" for="student-f2-select">学生番号</label>
-            		<input class="form-control" type = "text" name ="cd" placeholder="学生番号を入力してください">
+            		<input class="form-control" type = "text" name ="cd" placeholder="学生番号を入力してください" required>
             		</div>
                     <div class="col-2 text-center">
                         <input type = "submit" class="btn btn-secondary" id="filter-button" value = "検索">
