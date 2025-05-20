@@ -113,7 +113,7 @@ public class ClassNumDao extends Dao {
     public boolean save(ClassNum classNum) throws Exception {
         Connection conn = getConnection();
 
-        String sql = "INSERT INTO CLASSNUM (CLASSNUM, NAME, SCHOOL_CD) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO CLASS_NUM (CLASS_NUM, NAME, SCHOOL_CD) VALUES (?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, classNum.getClassNum());
         stmt.setString(2, classNum.getName());
