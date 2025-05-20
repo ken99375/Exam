@@ -27,6 +27,7 @@ public class TestListSubjectExecuteAction extends Action{
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
 			SubjectDao dao = new SubjectDao();
+
 			req.setAttribute("tes", "科目");
 			String entYearStr = req.getParameter("ent_year");
 			String classNum = req.getParameter("class_num");

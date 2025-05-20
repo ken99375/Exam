@@ -74,9 +74,11 @@
 					  <div class="mt-2 text-warning">
 					    ${errors['filter']}
 					  </div>
+
 					</c:if>
                 </div>
             </form>
+            
 
 			<form action = "TestRegistExecute.action" method = "get">
 	            	<input type = "hidden" name = "ent_year" value="${param.ent_year}"/>

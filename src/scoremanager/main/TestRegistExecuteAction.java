@@ -37,6 +37,8 @@ public class TestRegistExecuteAction extends Action {
             String times = req.getParameter("times");
 
             int entYear = 0;
+
+
 			// パラメータエラーチェック
 			if (entYearStr == null || entYearStr.trim().isEmpty() || "0".equals(entYearStr)
 					  || classNum   == null || classNum.trim().isEmpty()   || "0".equals(classNum)
