@@ -15,11 +15,12 @@
 	crossorigin="anonymous">
 	<link href="../assets/css/custom.css"
   rel="stylesheet">
+	<!-- Custom styles for this template-->
+    ${param.styles}
 <title>${param.title}</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 ${param.scripts}
 </head>
-
 <body>
 	<div id="wrapper" class="container">
 		<header
@@ -38,6 +39,7 @@ ${param.scripts}
 				</c:when>
 				<%-- 未ログインの場合 --%>
 				<c:otherwise>
+
 					<main class="col-8"> ${param.content} </main>
 				</c:otherwise>
 			</c:choose>

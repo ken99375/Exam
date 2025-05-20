@@ -33,18 +33,21 @@ public class TestRegistAction extends Action{
 
 			// 入学年度を取得し、数値に変換する
 			int entYear = 0;
+			int times = 0;
 			String entYearStr = req.getParameter("ent_year");
+			// クラス、科目コード、回数を取得
+			String classNum = req.getParameter("class_num");
+			String subjectCd = req.getParameter("cd");
+			String timesStr = req.getParameter("times");
 
-				if (entYearStr != null ){
-					entYear = Integer.parseInt(entYearStr);
-				}
+			if (timesStr != null) {
+				times = Integer.parseInt(timesStr);
+			}
+			if (entYearStr != null ){
+				entYear = Integer.parseInt(entYearStr);
+			}
 			// 入学年度が指定されている場合...
-			if (entYear != 0 ){
-				// クラス、科目コード、回数を取得
-				String classNum = req.getParameter("class_num");
-				String subjectCd = req.getParameter("cd");
-				int times = Integer.parseInt(req.getParameter("times"));
-
+			if (entYear != 0 && classNum != null  && subjectCd != null && times != 0){
 				// 科目コードと学校情報から科目を取得
 				Subject subject = sub_dao.get(subjectCd, teacher.getSchool());
 
