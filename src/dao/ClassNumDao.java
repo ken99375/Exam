@@ -110,11 +110,24 @@ public class ClassNumDao extends Dao {
         return list;
     }
 
-//    public boolean save(ClassNum classNum) throws Exception {
-//
-//    }
+    public boolean save(ClassNum classNum) throws Exception {
+        Connection conn = getConnection();
+
+        String sql = "INSERT INTO CLASSNUM (CLASSNUM, NAME, SCHOOL_CD) VALUES (?, ?, ?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, classNum.getClassNum());
+        stmt.setString(2, classNum.getName());
+        stmt.setString(3, classNum.getSchool().getCd());
+
+        int rows = stmt.executeUpdate();
+
+        stmt.close();
+        conn.close();
+
+        return rows > 0;
+    }
+}
 //
 //    public boolean save(ClassNum classNum, String newClassNum) throws Exception {
 //
 //    }
-}
