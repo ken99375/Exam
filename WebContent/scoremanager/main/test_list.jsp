@@ -48,6 +48,7 @@
                         </select>
                     </div>
 
+
                     <div class="col-2 text-center">
                         <button class="btn btn-secondary" id="filter-button">検索</button>
                     </div>
