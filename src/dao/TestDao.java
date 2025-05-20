@@ -12,6 +12,7 @@ import bean.Student;
 import bean.Subject;
 import bean.Test;
 
+
 public class TestDao extends Dao{
 	private String baseSql = "select s.ent_year as ent_year, s.class_num as class_num, s.no as student_no, s.name as student_name,"
 			+ " coalesce(t.subject_cd, ?) as subject_cd, coalesce(t.no, ?) as no, t.point "
