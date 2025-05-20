@@ -61,7 +61,7 @@ public class TestListSubjectExecuteAction extends Action{
 					classNum   == null || classNum.trim().isEmpty() ||
 					cd  == null || cd.trim().isEmpty()){
 				errors.put("filter", "入学年度とクラスと科目を選択してください");
-				errorBack(req, res, errors, "test_list_student.jsp");
+				errorBack(req, res, errors, "test_list.jsp");
 				return;
 			} else {
 				entYear = Integer.parseInt(entYearStr);

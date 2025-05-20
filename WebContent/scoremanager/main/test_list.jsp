@@ -49,7 +49,11 @@
                     <div class="col-2 text-center">
                         <button class="btn btn-secondary" id="filter-button">検索</button>
                     </div>
-                    <div class="mt-2 text-warning">${errors.get("f1")}</div>
+                    <c:if test="${not empty errors['filter']}">
+					  <div class="mt-2 text-warning">
+					    ${errors['filter']}
+					  </div>
+					</c:if>
                 </div>
             </form>
             <form action = "TestListStudentExecute.action"method="post">
