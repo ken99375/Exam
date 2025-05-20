@@ -37,10 +37,23 @@ public class TestRegistExecuteAction extends Action {
             String subjectCd = req.getParameter("cd");
 
             // 検索条件（エラー時の戻り先用）
-            String entYear = req.getParameter("ent_year");
+            String entYearStr = req.getParameter("ent_year");
             String classNum = req.getParameter("class_num");
             String times = req.getParameter("times");
 
+            int entYear = 0;
+			// パラメータエラーチェック
+			if (entYearStr == null || entYearStr.trim().isEmpty() ||
+					classNum   == null || classNum.trim().isEmpty() ||
+					subjectCd  == null || subjectCd.trim().isEmpty() || times == null || times.trim().isEmpty()){
+				errors.put("filter", "入学年度とクラスと科目と回数を選択してください");
+				String backUrl = String.format("TestRegist.action?ent_year=%s&class_num=%s&cd=%s&times=%s",
+                        entYear, classNum, subjectCd, times);
+                errorBack(req, res, errors, backUrl);
+				return;
+			} else {
+				entYear = Integer.parseInt(entYearStr);
+			}
             // ログ出力：受信データ確認
             System.out.println("=== フォームから受信したデータ ===");
             System.out.println("studentNos: " + Arrays.toString(studentNos));
