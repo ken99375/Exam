@@ -88,6 +88,7 @@ public class TeacherDao extends Dao {
 		Teacher teacher = get(id);
 		// 教員がnullまたはパスワードが一致しない場合
 		if (teacher == null || !teacher.getPassword().equals(password)) {
+			teacher = null;
 			return teacher;
 		}
 		return teacher;
