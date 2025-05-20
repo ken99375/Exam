@@ -50,7 +50,7 @@
                             <option value="">-------</option>
                             <c:forEach var="num" items="${class_num_set}">
                                 <%--現在のnumと選択されたf2が一致されていた場合selectedを追記 --%>
-                                 <option value="${num}" <c:if test="${param.classNum == num}">selected</c:if>>${num}</option>
+                                 <option value="${num.classNum}" <c:if test="${param.classNum == num}">selected</c:if>>${num.classNum}</option>
                             </c:forEach>
                         </select>
                             <c:if test="${not empty errors.classnum}">

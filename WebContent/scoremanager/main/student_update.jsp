@@ -38,7 +38,7 @@
                     <label for="classNum" class="form-label">クラス</label>
                     <select class="form-select" id="classNum" name="classNum">
                         <c:forEach var="num" items="${class_num_set}">
-                            <option value="${num}" <c:if test="${num == student.classNum}">selected</c:if>>${num}</option>
+                            <option value="${num.classNum}" <c:if test="${num.classNum == student.classNum}">selected</c:if>>${num.classNum}</option>
                         </c:forEach>
                     </select>
                 </div>

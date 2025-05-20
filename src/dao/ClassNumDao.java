@@ -32,7 +32,8 @@ public class ClassNumDao extends Dao {
             if (rSet.next()) {
                 // リザルトセットが存在する場合
                 // クラス番号インスタンスに検索結果をセット
-                classNum.setClass_num(rSet.getString("class_num"));
+            	classNum.setName(rSet.getString("name"));
+                classNum.setClassNum(rSet.getString("class_num"));
                 classNum.setSchool(sDao.get(rSet.getString("school_cd")));
             } else {
                 // リザルトセットが存在しない場合
@@ -63,24 +64,27 @@ public class ClassNumDao extends Dao {
         return classNum;
     }
 
-    public List<String> filter(School school) throws Exception {
+    public List<ClassNum> filter(School school) throws Exception {
         // リストを初期化
-        List<String> list = new ArrayList<>();
+        List<ClassNum> list = new ArrayList<>();
         // データベースへのコネクションを確立
         Connection connection = getConnection();
         // プリペアードステートメント
         PreparedStatement statement = null;
         try {
             // プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement("select class_num from class_num where school_cd = ? order by class_num");
+            statement = connection.prepareStatement("select * from class_num where school_cd = ? order by class_num");
             // プリペアードステートメントに学校コードをバインド
             statement.setString(1, school.getCd());
             // プリペアードステートメントを実行
             ResultSet rSet = statement.executeQuery();
             // リザルトセットを全件走査
             while (rSet.next()) {
-                // リストにクラス番号を追加
-                list.add(rSet.getString("class_num"));
+                ClassNum classNum = new ClassNum();
+                classNum.setSchool(school);
+                classNum.setName(rSet.getString("name"));
+                classNum.setClassNum(rSet.getString("class_num"));
+                list.add(classNum);
             }
         } catch (Exception e) {
             throw e;
