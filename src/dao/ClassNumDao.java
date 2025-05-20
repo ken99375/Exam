@@ -126,8 +126,20 @@ public class ClassNumDao extends Dao {
 
         return rows > 0;
     }
+public boolean update(ClassNum classNum) throws Exception {
+    Connection con = getConnection();
+
+    String sql = "UPDATE class_num SET name = ? WHERE class_num = ? AND school_cd = ?";
+    PreparedStatement st = con.prepareStatement(sql);
+    st.setString(1, classNum.getName());
+    st.setString(2, classNum.getClassNum());
+    st.setString(3, classNum.getSchool().getCd());
+
+    int rows = st.executeUpdate();
+
+    st.close();
+    con.close();
+
+    return rows > 0;
 }
-//
-//    public boolean save(ClassNum classNum, String newClassNum) throws Exception {
-//
-//    }
+}

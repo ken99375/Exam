@@ -15,13 +15,13 @@ public class SubjectUpdateAction extends Action{
 		try {
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
-			String cd = req.getParameter("cd");
+			String classnum = req.getParameter("classnum");
 			SubjectDao dao = new SubjectDao();
-			Subject subject = dao.get(cd, teacher.getSchool());
+			Subject subject = dao.get(classnum, teacher.getSchool());
 
 			req.setAttribute("subject", subject);
 
-			req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+			req.getRequestDispatcher("class_update.jsp").forward(req, res);
 		} catch (Exception e){
 			req.getRequestDispatcher("/error.jsp").forward(req, res);
 		}
