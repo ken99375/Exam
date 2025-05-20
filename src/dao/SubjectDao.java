@@ -61,54 +61,53 @@ public class SubjectDao extends Dao{
     }
     return subject;
 	}
-	 //所属校と科目コードで絞り込んで科目テーブルの一行を返す
-	public Subject allGet(String cd, School school) throws Exception{
-		// 科目インスタンスを初期化
-   	Subject subject = new Subject();
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
 
-		try {
-   		// プリペアードステートメントにSQL文をセット
-   		statement = connection.prepareStatement("select * from subject where cd = ? and school_cd = ? ");
-   		// プリペアードステートメントに学生番号をバインド
-   		statement.setString(1, cd);
-   		statement.setString(2, school.getCd());
-   		// プリペアードステートメントを実行
-   		ResultSet rSet = statement.executeQuery();
+	// 所属校と科目コードで絞り込んで科目テーブルの一行を返す
+	public Subject allGet(String cd, School school) throws Exception {
+	    Subject subject = null;
 
-   		if (rSet.next()) {
-           	// 科目オブジェクトにselectの結果を設定
-           	subject.setCd(rSet.getString("cd"));
-           	subject.setName(rSet.getString("name"));
-           	subject.setSchool(school);
-   		} else {
-   			// リザルトセットが存在しない場合
-   			// 学生インスタンスにnullをセット
-   			subject = null;
-   		}
-   	} catch (Exception e) {
-   		throw e;
-   	} finally {
-   		// プリペアードステートメントを閉じる
-   		if (statement != null) {
-   			try {
-   				statement.close();
-   			} catch (SQLException sqle) {
-   				throw sqle;
-   		}
-   	}
-   	// コネクションを閉じる
-   	if (connection != null) {
-   		try {
-   			connection.close();
-   		} catch (SQLException sqle) {
-   			throw sqle;
-   		}
-   	}
-   }
-   return subject;
-}
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    ResultSet rs = null;
+
+	    try {
+	        // ログ：入力された条件
+	        System.out.println("[DAO.allGet] school_cd: [" + school.getCd() + "]");
+	        System.out.println("[DAO.allGet] cd: [" + cd + "]");
+	        System.out.println("[DAO.allGet] cd.trim(): [" + cd.trim() + "]");
+
+	        String sql = "SELECT * FROM subject WHERE school_cd = ? AND cd = ?";
+	        statement = connection.prepareStatement(sql);
+	        statement.setString(1, school.getCd().trim()); // 念のため trim
+	        statement.setString(2, cd.trim());
+
+	        rs = statement.executeQuery();
+
+	        if (rs.next()) {
+	            subject = new Subject();
+	            subject.setCd(rs.getString("cd"));
+	            subject.setName(rs.getString("name"));
+	            subject.setSchool(school);
+
+	            // ログ：取得した値
+	            System.out.println("[DAO.allGet] 該当データあり → cd: " + subject.getCd() + ", name: " + subject.getName());
+	        } else {
+	            // ログ：該当なし
+	            System.out.println("[DAO.allGet] 該当する科目は存在しません。");
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("[DAO.allGet] 例外発生: " + e.getMessage());
+	        throw e;
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (statement != null) statement.close();
+	        if (connection != null) connection.close();
+	    }
+
+	    return subject;
+	}
+
 
 	// 所属校に登録された科目一覧を返すメソッド
 	public List<Subject> filter(School school){

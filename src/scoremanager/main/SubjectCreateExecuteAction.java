@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDao;
@@ -22,6 +23,19 @@ public class SubjectCreateExecuteAction extends Action{
 
 			String cd = req.getParameter("cd");
 			String name = req.getParameter("name");
+
+			// ★ここにログを追加
+			System.out.println("teacher.school_cd: " + teacher.getSchool().getCd());
+			System.out.println("入力されたcd: " + cd);
+			System.out.println("入力されたname: " + name);
+			// ✅ ログ出力ここに入れる！
+			System.out.println("teacher.school_cd: " + teacher.getSchool().getCd());
+			System.out.println("teacher.school オブジェクト: " + teacher.getSchool());
+
+			School school = teacher.getSchool();
+			System.out.println("School.class: " + school.getClass().getName());
+
+
 			// この後に条件分岐でエラー文字設定と同じページに戻る処理
             // 入力バリデーション
             if (cd == null || cd.trim().isEmpty()) {

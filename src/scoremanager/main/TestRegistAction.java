@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ClassNum;
 import bean.Subject;
 import bean.Teacher;
 import bean.Test;
@@ -67,7 +68,7 @@ public class TestRegistAction extends Action{
 			 int year = todaysDate.getYear(); // 現在の年を取得
 			// 先生の所属する学校のクラスリストを取得
 			ClassNumDao c_dao = new ClassNumDao();
-			List<String> c_list = c_dao.filter(teacher.getSchool());
+			List<ClassNum> c_list = c_dao.filter(teacher.getSchool());
 			if (c_list.isEmpty()) {
 				errors.put("c_error", "クラスが存在しません");
 			}
