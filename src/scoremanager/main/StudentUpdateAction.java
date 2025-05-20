@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.ClassNum;
 import bean.Student;
 import dao.ClassNumDao;
 import dao.StudentDao;
@@ -21,7 +22,7 @@ public class StudentUpdateAction extends Action {
 
     // クラス番号一覧も取得
     ClassNumDao classNumDao = new ClassNumDao();
-    List<String> classNums = classNumDao.filter(student.getSchool());
+    List<ClassNum> classNums = classNumDao.filter(student.getSchool());
     req.setAttribute("class_num_set", classNums);
 
     // JSPへフォワード
