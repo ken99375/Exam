@@ -15,7 +15,7 @@
                     <div class="col-3">
                         <label class="form-label" for="student-f1-select">入学年度</label>
                         <select class="form-select" id="filter-ent-year" name="ent_year">
-
+							<option value="">------</option>
                             <c:forEach var="year" items="${ent_year_set}">
                                 <%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
                                 <option value="${year }" <c:if test="${year == f1 }">selected</c:if>>${year }</option>
@@ -25,6 +25,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f2-select">クラス</label>
                         <select class="form-select" id="filter-class-num" name="class_num">
+                        <option value="">------</option>
                             <c:forEach var="num" items="${c_list}">
                                 <%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
                                 <option value="${num.classNum }" <c:if test="${num.classNum == f2 }">selected</c:if>>${num.classNum }</option>
@@ -34,7 +35,7 @@
                     <div class="col-3">
                         <label class="form-label" for="student-f2-select">科目</label>
                         <select class="form-select" id="filter-subject" name="cd">
-
+							<option value="">------</option>
                             <c:forEach var="num" items="${sub_list}">
                                 <%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
                                 <option value="${num.cd }" >${num.name }</option>
@@ -44,6 +45,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f2-select">回数</label>
                         <select class="form-select" id="filter-times" name="times">
+                        <option value="">------</option>
                                 <option value= "1" >1</option>
                                 <option value = "2">2</option>
                         </select>
