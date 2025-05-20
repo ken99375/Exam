@@ -31,6 +31,36 @@ public class TestRegistAction extends Action{
 			// 科目DAOのインスタンスを作成
 			SubjectDao sub_dao = new SubjectDao();
 
+			LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
+			 int year = todaysDate.getYear(); // 現在の年を取得
+			// 先生の所属する学校のクラスリストを取得
+			ClassNumDao c_dao = new ClassNumDao();
+			List<ClassNum> c_list = c_dao.filter(teacher.getSchool());
+			if (c_list.isEmpty()) {
+				errors.put("c_error", "クラスが存在しません");
+			}
+			// 先生の所属する学校の科目データを持ってくる
+			List<Subject> sub_list = sub_dao.filter(teacher.getSchool());
+			if (sub_list.isEmpty()) {
+				errors.put("sub_error", "科目が存在しません");
+			}
+			List<Integer> entYearSet = new ArrayList<>();
+			 // 10年前から1年後まで年をリストに追加
+			 for (int i = year -10; i < year + 10; i++) {
+				 entYearSet.add(i);
+			 }
+			// エラー文字設定されたとき元のページへ戻る
+			if (!errors.isEmpty()){
+				req.setAttribute("errors", errors);
+				errorBack(req, res, errors, "test_regist.jsp");
+				return;
+			}
+
+			// JSPに渡す補助データをリクエストスコープに補助
+			req.setAttribute("c_list", c_list);
+			req.setAttribute("sub_list", sub_list);
+			req.setAttribute("ent_year_set", entYearSet);
+
 			// 入学年度を取得し、数値に変換する
 			int entYear = 0;
 			int times = 0;
@@ -39,6 +69,13 @@ public class TestRegistAction extends Action{
 			String classNum = req.getParameter("class_num");
 			String subjectCd = req.getParameter("cd");
 			String timesStr = req.getParameter("times");
+
+			if ("0".equals(entYearStr)  || "0".equals(classNum) || "0".equals(subjectCd)  || "0".equals(timesStr)){
+				errors.put("filter", "入学年度とクラスと科目と回数を選択してください");
+				req.setAttribute("errors", errors);
+				errorBack(req, res, errors, "test_regist.jsp");
+				return;
+			}
 
 			if (timesStr != null) {
 				times = Integer.parseInt(timesStr);
@@ -66,36 +103,6 @@ public class TestRegistAction extends Action{
 			}
 			// 処理到達のチェック
 			System.out.println(entYear);
-
-			LocalDate todaysDate = LocalDate.now(); // LcalDateインスタンスを取得
-			 int year = todaysDate.getYear(); // 現在の年を取得
-			// 先生の所属する学校のクラスリストを取得
-			ClassNumDao c_dao = new ClassNumDao();
-			List<ClassNum> c_list = c_dao.filter(teacher.getSchool());
-			if (c_list.isEmpty()) {
-				errors.put("c_error", "クラスが存在しません");
-			}
-			// 先生の所属する学校の科目データを持ってくる
-			List<Subject> sub_list = sub_dao.filter(teacher.getSchool());
-			if (sub_list.isEmpty()) {
-				errors.put("sub_error", "科目が存在しません");
-			}
-			List<Integer> entYearSet = new ArrayList<>();
-			 // 10年前から1年後まで年をリストに追加
-			 for (int i = year -10; i < year + 10; i++) {
-				 entYearSet.add(i);
-			 }
-			// エラー文字設定されたとき元のページへ戻る
-			if (!errors.isEmpty()){
-				req.setAttribute("errors", errors);
-				errorBack(req, res, errors, "error.jsp");
-				return;
-			}
-
-			// JSPに渡す補助データをリクエストスコープに補助
-			req.setAttribute("c_list", c_list);
-			req.setAttribute("sub_list", sub_list);
-			req.setAttribute("ent_year_set", entYearSet);
 
 			// test.regist.jspにフォワード
 			req.getRequestDispatcher("test_regist.jsp").forward(req, res);
