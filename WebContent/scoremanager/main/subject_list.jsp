@@ -42,6 +42,11 @@
 						        </c:forEach>
 						    </tbody>
 						</table>
+						<br>
+					<!-- 新規登録リンク（右寄せ） -->
+            		<div class="my-2 text-end px-4">
+                		<a href="SubjectRestore.action">復元</a>
+            		</div>
                 </c:when>
                 <c:otherwise>
                     <table class="table table-hover">

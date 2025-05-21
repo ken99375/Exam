@@ -342,4 +342,57 @@ public class SubjectDao extends Dao{
 	        return false;
 	    }
 	}
+
+	// 論理削除された科目一覧を返すメソッド
+	public List<Subject> filterDeleted(School school) throws Exception {
+	    List<Subject> list = new ArrayList<>();
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    ResultSet rSet = null;
+
+	    try {
+	        String sql = "SELECT * FROM subject WHERE school_cd = ? AND is_attend = FALSE ORDER BY cd";
+	        statement = connection.prepareStatement(sql);
+	        statement.setString(1, school.getCd());
+
+	        rSet = statement.executeQuery();
+	        while (rSet.next()) {
+	            Subject subject = new Subject();
+	            subject.setSchool(school);
+	            subject.setCd(rSet.getString("cd"));
+	            subject.setName(rSet.getString("name"));
+	            list.add(subject);
+	        }
+	    } finally {
+	        if (rSet != null) try { rSet.close(); } catch (SQLException e) {}
+	        if (statement != null) try { statement.close(); } catch (SQLException e) {}
+	        if (connection != null) try { connection.close(); } catch (SQLException e) {}
+	    }
+
+	    return list;
+	}
+
+
+
+	// 科目の論理復元（is_attend を TRUE に更新）
+	public boolean restore(Subject subject) throws Exception {
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    int count = 0;
+
+	    try {
+	        String sql = "UPDATE subject SET is_attend = TRUE WHERE school_cd = ? AND cd = ?";
+	        statement = connection.prepareStatement(sql);
+	        statement.setString(1, subject.getSchool().getCd());
+	        statement.setString(2, subject.getCd());
+
+	        count = statement.executeUpdate();
+	    } finally {
+	        if (statement != null) try { statement.close(); } catch (SQLException e) {}
+	        if (connection != null) try { connection.close(); } catch (SQLException e) {}
+	    }
+
+	    return count > 0;
+	}
+
 }
