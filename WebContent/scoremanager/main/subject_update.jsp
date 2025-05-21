@@ -13,7 +13,7 @@
                 <div class="mb-3">
     				<label for="cd" class="form-label">科目コード</label>
     				<div>${subject.cd}</div>
-    				<input type="hidden" class="form-control" id="cd" name="cd" value="${subject.cd}" />
+    				<input type="hidden" class="form-control" id="cd" name="cd" value="${param.subject.cd}" />
 				</div>
 
 				<c:if test="${not empty errors['dele']}">
