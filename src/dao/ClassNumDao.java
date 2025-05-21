@@ -142,4 +142,55 @@ public boolean update(ClassNum classNum) throws Exception {
 
     return rows > 0;
 }
+
+public boolean deleteAttend(ClassNum classNum) throws Exception {
+    // コネクションを確立
+    Connection connection = getConnection();
+    // プリペアードステートメント
+    PreparedStatement statement = null;
+    // 実行件数
+    int count = 0;
+
+    try {
+        statement = connection.prepareStatement(
+            "UPDATE class_num SET is_attend = FALSE WHERE school_cd = ? AND classnum = ?"
+        );
+        statement.setString(1, classNum.getSchool().getCd());
+        statement.setString(2, classNum.getClassNum());
+
+        // プリペアードステートメントを実行
+        count = statement.executeUpdate();
+
+    } catch (Exception e) {
+        throw e;
+    } finally {
+        // プリペアードステートメントを閉じる
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException sqle) {
+                throw sqle;
+            }
+        }
+
+        // コネクションを閉じる
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException sqle) {
+                throw sqle;
+            }
+        }
+    }
+
+    // 実行件数による戻り値
+    if (count > 0) {
+        // 実行件数が1件以上ある場合
+        return true;
+    } else {
+        // 実行件数が0件の場合
+        return false;
+    }
+}
+
 }

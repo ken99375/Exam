@@ -283,7 +283,6 @@ public class SubjectDao extends Dao{
 	        }
 	    }
 
-
 	    if (count > 0) {
 	        // 実行件数が1件以上ある場合
 	        return true;

@@ -14,7 +14,6 @@
             </div>
 
             <div>
-                <a href="ClassList.action" style="margin-right: 60px;">戻る</a>
                 <a href="ClassList.action">クラス一覧</a>
             </div>
         </section>
