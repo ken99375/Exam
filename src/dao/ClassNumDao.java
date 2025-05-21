@@ -188,5 +188,53 @@ public boolean deleteAttend(ClassNum classNum) throws Exception {
     // 実行件数に応じた戻り値
     return count > 0;
 }
+public List<ClassNum> filterDeleted(School school) throws Exception {
+    List<ClassNum> list = new ArrayList<>();
+    Connection connection = getConnection();
+    PreparedStatement statement = null;
+
+    try {
+        String sql = "SELECT * FROM class_num WHERE school_cd = ? AND is_attend = FALSE ORDER BY class_num";
+        statement = connection.prepareStatement(sql);
+        statement.setString(1, school.getCd());
+
+        ResultSet rSet = statement.executeQuery();
+        while (rSet.next()) {
+            ClassNum classNum = new ClassNum();
+            classNum.setSchool(school);
+            classNum.setClassNum(rSet.getString("class_num"));
+            classNum.setName(rSet.getString("name")); // ← nameカラムがある場合
+            list.add(classNum);
+        }
+    } finally {
+        if (statement != null) try { statement.close(); } catch (SQLException e) {}
+        if (connection != null) try { connection.close(); } catch (SQLException e) {}
+    }
+
+    return list;
+}
+
+// クラス情報を復元するメソッド
+public boolean restore(ClassNum classNum) throws Exception {
+    Connection connection = getConnection();
+    PreparedStatement statement = null;
+    int count = 0;
+
+    try {
+        String sql = "UPDATE class_num SET is_attend = TRUE WHERE school_cd = ? AND class_num = ?";
+        statement = connection.prepareStatement(sql);
+        statement.setString(1, classNum.getSchool().getCd());
+        statement.setString(2, classNum.getClassNum());
+
+        count = statement.executeUpdate();
+    } finally {
+        if (statement != null) try { statement.close(); } catch (SQLException e) {}
+        if (connection != null) try { connection.close(); } catch (SQLException e) {}
+    }
+
+    return count > 0;
+}
+
+
 
 }
