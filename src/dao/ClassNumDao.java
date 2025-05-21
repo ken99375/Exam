@@ -73,7 +73,7 @@ public class ClassNumDao extends Dao {
         PreparedStatement statement = null;
         try {
             // プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement("select * from class_num where school_cd = ? order by class_num");
+            statement = connection.prepareStatement("select * from class_num where school_cd = ? AND is_attend = TRUE order by class_num");
             // プリペアードステートメントに学校コードをバインド
             statement.setString(1, school.getCd());
             // プリペアードステートメントを実行
@@ -152,19 +152,21 @@ public boolean deleteAttend(ClassNum classNum) throws Exception {
     int count = 0;
 
     try {
-        statement = connection.prepareStatement(
-            "UPDATE class_num SET is_attend = FALSE WHERE school_cd = ? AND classnum = ?"
-        );
+        // SQL構文（論理削除）
+        String sql = "UPDATE class_num SET is_attend = FALSE WHERE school_cd = ? AND class_num = ?";
+        statement = connection.prepareStatement(sql);
+
+        // プレースホルダに値をバインド
         statement.setString(1, classNum.getSchool().getCd());
         statement.setString(2, classNum.getClassNum());
 
-        // プリペアードステートメントを実行
+        // SQL実行
         count = statement.executeUpdate();
 
     } catch (Exception e) {
         throw e;
     } finally {
-        // プリペアードステートメントを閉じる
+        // ステートメントのクローズ
         if (statement != null) {
             try {
                 statement.close();
@@ -173,7 +175,7 @@ public boolean deleteAttend(ClassNum classNum) throws Exception {
             }
         }
 
-        // コネクションを閉じる
+        // コネクションのクローズ
         if (connection != null) {
             try {
                 connection.close();
@@ -183,14 +185,8 @@ public boolean deleteAttend(ClassNum classNum) throws Exception {
         }
     }
 
-    // 実行件数による戻り値
-    if (count > 0) {
-        // 実行件数が1件以上ある場合
-        return true;
-    } else {
-        // 実行件数が0件の場合
-        return false;
-    }
+    // 実行件数に応じた戻り値
+    return count > 0;
 }
 
 }
