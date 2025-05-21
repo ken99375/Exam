@@ -16,7 +16,7 @@
 
 				<input type ="hidden" name ="cd" value ="${subject.cd}">
 				<input type = "hidden" name ="name" value ="${subject.name}">
-				<input type="submit" class="btn btn-danger btn-block" value="復元">
+				<input type="submit" class="btn btn-sm btn-success" value="復元">
 			</form>
 
 			<br/>
