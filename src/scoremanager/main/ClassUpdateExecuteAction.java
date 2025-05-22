@@ -27,6 +27,15 @@ public class ClassUpdateExecuteAction extends Action {
             System.out.println("入力された name: " + name);
             System.out.println("school_cd: " + teacher.getSchool().getCd());
 
+            ClassNumDao dao = new ClassNumDao();
+            ClassNum c = dao.get(classnum, teacher.getSchool());
+            if (c == null) {
+            	errors.put("dele", "クラスが存在しません");
+            	req.setAttribute("errors", errors);
+            	errorBack(req, res, errors, "class_update.jsp");
+				return;
+            }
+
             // 入力バリデーション
             if (classnum == null || classnum.trim().isEmpty()) {
                 errors.put("classnum", "クラスコードを入力してください。");
@@ -53,7 +62,6 @@ public class ClassUpdateExecuteAction extends Action {
             classNum.setName(name);
             classNum.setSchool(teacher.getSchool());
 
-            ClassNumDao dao = new ClassNumDao();
             boolean result = dao.update(classNum);  // ← ここ重要！
 
             if (result) {

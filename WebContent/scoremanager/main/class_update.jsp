@@ -10,14 +10,28 @@
 
             <form method="post" action="ClassUpdateExecute.action" class="px-4">
 
-                <div class="mb-3">
-                    <label for="classnum" class="form-label">クラスコード</label>
-                    <div>${classInfo.classNum}</div>
-                    <input type="hidden" class="form-control" id="classnum" name="classnum" value="${classInfo.classNum}" />
-                    <c:if test="${errors.classnum != null}">
-                        <div class="text-danger">${errors.classnum}</div>
-                    </c:if>
-                </div>
+            	<div class="mb-3">
+	            	<c:if test="${ empty errors['dele']}">
+	    				<label for="classnum" class="form-label">クラスコード</label>
+	    				<div>${classInfo.classNum}</div>
+	    					<input type="hidden" class="form-control" id="classnum" name="classnum" value="${classInfo.classNum}" />
+						<c:if test="${errors.classnum != null}">
+	                        <div class="text-danger">${errors.classnum}</div>
+	                    </c:if>
+					</c:if>
+				</div>
+
+
+                <c:if test="${not empty errors['dele']}">
+					<div class="mb-3">
+    					<label for="classnum" class="form-label">クラスコード</label>
+	    				<div>${param.classNum}</div>
+	    				<input type="hidden" class="form-control" id="classnum" name="classnum" value="${classInfo.classNum}" />
+						<div class="mt-2 text-warning">
+							 ${errors['dele']}
+						</div>
+					</div>
+				</c:if>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">クラス名</label>
