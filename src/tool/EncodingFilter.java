@@ -27,7 +27,7 @@ public class EncodingFilter implements Filter {
 			System.out.println("ログインチェックを行います。");
 			if (session == null || session.getAttribute("user") == null){
 				System.out.println("セッションが有効ではありません。");
-				h_res.sendRedirect(h_req.getContextPath() + "/login.jsp");
+				h_res.sendRedirect(h_req.getContextPath() + "/scoremanager/Login.action");
 				return;
 			}
 			System.out.println("ログインチェックをしました。");
