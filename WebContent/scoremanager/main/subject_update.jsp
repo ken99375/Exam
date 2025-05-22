@@ -10,16 +10,23 @@
             <form method="post" action="SubjectUpdateExecute.action" class="px-4">
                 <input type="hidden" name="no" value="${student.no}" />
 
-                <div class="mb-3">
-    				<label for="cd" class="form-label">科目コード</label>
+				<c:if test="${ empty errors['dele']}">
+					<div class="mb-3">
+    					<label for="cd" class="form-label">科目コード</label>
     				<div>${subject.cd}</div>
-    				<input type="hidden" class="form-control" id="cd" name="cd" value="${param.subject.cd}" />
+    				<input type="hidden" class="form-control" id="cd" name="cd" value="${subject.cd}" />
 				</div>
+				</c:if>
 
 				<c:if test="${not empty errors['dele']}">
-					  <div class="mt-2 text-warning">
-					    ${errors['filter']}
-					  </div>
+					<div class="mb-3">
+    					<label for="cd" class="form-label">科目コード</label>
+	    				<div>${param.cd}</div>
+	    				<input type="hidden" class="form-control" id="cd" name="cd" value="${param.cd}" />
+						<div class="mt-2 text-warning">
+							 ${errors['dele']}
+						</div>
+					</div>
 				</c:if>
 
                 <div class="mb-3">

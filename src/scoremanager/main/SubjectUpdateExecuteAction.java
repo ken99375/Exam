@@ -31,13 +31,14 @@ public class SubjectUpdateExecuteAction extends Action{
 			SubjectDao dao = new SubjectDao();
 			// 別画面で削除されていた場合のチェック機能
 			Subject sub = dao.get(cd, teacher.getSchool());
+			System.out.println(sub);
 			if (sub == null) {
 				errors.put("dele", "科目が存在していません");
 				req.setAttribute("errors", errors);
 				errorBack(req, res, errors, "subject_update.jsp");
 				return;
 			}
-			
+
 			boolean result = dao.save(subject);
 
 			// boolean型の場合if(result)でおけ。
