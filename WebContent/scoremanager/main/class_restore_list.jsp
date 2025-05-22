@@ -16,7 +16,7 @@
                             <tr>
                                 <th>クラスコード</th>
                                 <th class="ps-5">クラス名</th>
-                                <th class="text-end">操作</th>
+                                <th class="text-end"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,7 @@
                                     <td class="text-end">
                                         <form action="ClassRestore2.action" method="post" style="display:inline;">
                                             <input type="hidden" name="classnum" value="${classItem.classNum}">
-                                            <input type="submit" value="復元" class="btn btn-sm btn-success">
+                                            <input type="submit" value="復元" class="btn btn-sm btn-success"style="margin-right: 100px;">
                                         </form>
                                     </td>
                                 </tr>
