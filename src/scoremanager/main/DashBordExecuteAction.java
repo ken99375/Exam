@@ -2,7 +2,9 @@ package scoremanager.main;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,17 +26,35 @@ public class DashBordExecuteAction extends Action{
 			HttpSession session = req.getSession();
 			Teacher teacher = (Teacher)session.getAttribute("user");
 			SubjectDao sub_dao = new SubjectDao();
+			Map<String, String> errors = new HashMap<>();
 
 			int entYear = 0;
+			int times = 0;
 			String entYearStr = req.getParameter("ent_year");
+			String classNum = req.getParameter("class_num");
+			String subjectCd = req.getParameter("cd");
+			String timesStr = req.getParameter("times");
 			if (entYearStr != null ){
 				entYear = Integer.parseInt(entYearStr);
 			}
-			if (entYear != 0 ){
+			if (timesStr != null) {
+				times = Integer.parseInt(timesStr);
+			}
+			if ((entYearStr == null || "0".equals(entYearStr))
+					  && ( classNum   == null || "0".equals(classNum))
+					  && ( subjectCd  == null || "0".equals(subjectCd))
+					  && ( timesStr      == null || "0".equals(timesStr))){
+				errors.put("filter", "入学年度とクラスと科目と回数を選択してください");
+				String backUrl = String.format("DashBord.action?ent_year=%s&class_num=%s&cd=%s&times=%s",
+                        entYear, classNum, subjectCd, times);
+                errorBack(req, res, errors, backUrl);
+				return;
+			}
+			if (!"0".equals(entYearStr)
+					  && !"0".equals(classNum)
+					  && !"0".equals(subjectCd)
+					  && !"0".equals(timesStr)){
 
-				String classNum = req.getParameter("class_num");
-				String subjectCd = req.getParameter("cd");
-				int times = Integer.parseInt(req.getParameter("times"));
 				Subject subject = sub_dao.get(subjectCd, teacher.getSchool());
 				System.out.println(entYear);
 				DashBordDao dashDao = new DashBordDao();
