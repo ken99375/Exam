@@ -21,7 +21,7 @@
                             id="classnum"
                             name="classnum"
                             placeholder="クラスコードを入力してください"
-                            maxlength="3"
+                            maxlength="5"
                             value="${classnum}"
                             required>
                         <c:if test="${not empty errors.cd}">
