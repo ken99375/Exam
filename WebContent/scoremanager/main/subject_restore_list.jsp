@@ -16,7 +16,7 @@
                             <tr>
                                 <th>科目コード</th>
                                 <th class="ps-5">科目名</th>
-                                <th class="text-end">操作</th>
+                                <th class="text-end"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,7 @@
                                     <td class="text-end">
                                         <form action="SubjectRestore2.action" method="post" style="display:inline;">
                                             <input type="hidden" name="cd" value="${subjectItem.cd}">
-                                            <input type="submit" value="復元" class="btn btn-sm btn-success">
+                                            <input type="submit" value="復元" class="btn btn-sm btn-success"style="margin-right: 100px;">
                                         </form>
                                     </td>
                                 </tr>
