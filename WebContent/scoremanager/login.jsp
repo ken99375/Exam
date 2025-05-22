@@ -70,6 +70,10 @@
 						<input class="w-25 btn btn-lg btn-primary" type="submit" name="login" value="ログイン"/>
 					</div>
 				</div>
+	            <!-- 新規登録リンク（右寄せ） -->
+				<div class="my-2 text-end px-4">
+               		<a href="SignUp.action">サインアップ</a>
+            	</div>
 			</form>
 		</section>
 	</c:param>

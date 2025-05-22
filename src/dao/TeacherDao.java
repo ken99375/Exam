@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import bean.Teacher;
 
@@ -93,5 +94,82 @@ public class TeacherDao extends Dao {
 		}
 		return teacher;
 	}
+
+    /**
+     * 学校コードが存在するかを teacher テーブルで確認する
+     *
+     * @param cd 学校コード
+     * @return 存在する場合は true、それ以外は false
+     * @throws Exception
+     */
+    public boolean authenticate(String cd) throws Exception {
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        boolean isAuthenticated = false;
+
+        try {
+            // teacher テーブルから SCHOOL_CD を確認
+            statement = connection.prepareStatement(
+                "SELECT 1 FROM teacher WHERE SCHOOL_CD = ?"
+            );
+            statement.setString(1, cd);
+            ResultSet rSet = statement.executeQuery();
+
+            if (rSet.next()) {
+                isAuthenticated = true;
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+
+        return isAuthenticated;
+    }
+
+    // 追加
+    public boolean insertTeacher(String id, String password, String name, String schoolCd) throws Exception {
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(
+                "INSERT INTO teacher (id, password, name, school_cd) VALUES (?, ?, ?, ?)"
+            );
+            statement.setString(1, id);
+            statement.setString(2, password);
+            statement.setString(3, name);
+            statement.setString(4, schoolCd);
+
+            int rows = statement.executeUpdate();
+            return rows == 1;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // ID重複など
+            return false;
+
+        } finally {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
+    }
+
+
+
+
 }
 
