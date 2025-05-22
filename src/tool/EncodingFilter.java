@@ -30,6 +30,7 @@ public class EncodingFilter implements Filter {
 				h_res.sendRedirect(h_req.getContextPath() + "/scoremanager/Login.action");
 				return;
 			}
+
 			System.out.println("ログインチェックをしました。");
 			System.out.println("現在のコンテキストパス："+ h_req.getContextPath());
 			System.out.println("サーブレットの共通処理のためフィルタの前処理を作成しました");
