@@ -7,6 +7,7 @@ import bean.FeedbackMessage;
 import dao.FeedbackMessageDao;
 import tool.Action;
 
+
 public class FeedbackSendAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
         req.setCharacterEncoding("UTF-8");

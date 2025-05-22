@@ -12,4 +12,5 @@
 	<li class="nav-item mb-3"><a href="SubjectList.action" class="fs-5 text-break">科目管理</a></li>
 	<li class="nav-item mb-3"><a href="ClassList.action" class="fs-5 text-break">クラス管理</a></li>
 	<li class="nav-item mb-3"><a href="FeedbackSend.action" class="fs-5 text-break">フィードバック</a></li>
+
 </ul>

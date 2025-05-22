@@ -6,7 +6,6 @@
     <c:param name="content">
         <section class="me-4">
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">フィードバックフォーム</h2>
-
             <form action="FeedbackSend.action" method="post">
                 <div class="mx-3 mb-3 py-2 rounded" id="feedbackForm">
                     <!-- 名前入力（匿名可） -->

@@ -9,6 +9,7 @@ public class FeedbackMessage implements Serializable {
     private String message;
     private Timestamp createdAt;
 
+
     public int getId()
     { return id; }
     public void setId(int id)
