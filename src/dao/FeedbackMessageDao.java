@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 
 import bean.FeedbackMessage;
 
+
 public class FeedbackMessageDao extends Dao {
     public void save(FeedbackMessage msg) throws Exception {
         String sql = "INSERT INTO FEEDBACK_MESSAGE (NAME, MESSAGE) VALUES (?, ?)";
