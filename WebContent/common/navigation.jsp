@@ -11,4 +11,5 @@
 	<li class="nav-item mx-3 mb-3"><a href="DashBord.action" class="fs-5 text-break">成績ダッシュボード</a></li>
 	<li class="nav-item mb-3"><a href="SubjectList.action" class="fs-5 text-break">科目管理</a></li>
 	<li class="nav-item mb-3"><a href="ClassList.action" class="fs-5 text-break">クラス管理</a></li>
+	<li class="nav-item mb-3"><a href="FeedbackSend.action" class="fs-5 text-break">フィードバック</a></li>
 </ul>
