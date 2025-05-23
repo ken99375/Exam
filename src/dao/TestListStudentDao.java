@@ -28,6 +28,7 @@ public class TestListStudentDao extends Dao{
     	SubjectDao sub_dao = new SubjectDao();
     	try {
     	    // リザルトセットを全権走査
+
     	    while (rSet.next()) {
     	        // 学生で特定された成績のインスタンスを初期化
     	        TestListStudent tl_s = new TestListStudent();

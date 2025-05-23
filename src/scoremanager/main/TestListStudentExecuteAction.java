@@ -37,6 +37,7 @@ public class TestListStudentExecuteAction extends Action{
 
 				errors.put("c_error", "クラスが存在しません");
 			}
+
 			// 先生の所属する学校の科目データを持ってくる
 			SubjectDao sub_dao = new SubjectDao();
 			List<Subject> sub_list = sub_dao.filter(teacher.getSchool());
