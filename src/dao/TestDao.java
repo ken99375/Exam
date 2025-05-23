@@ -19,7 +19,7 @@ public class TestDao extends Dao{
 			+" from student as s "
 			+" left join test as t "
 			+" on s.no = t.student_no and t.school_cd = ? and t.subject_cd = ? and t.class_num = ? and t.no = ? "
-			+" where s.ent_year = ? and s.class_num = ? ";
+			+" where s.ent_year = ? and s.class_num = ? and s.is_attend = true";
 	 // 登録する際にinsertかupdateかを区別するためのメソッド
 	public Test get(Student student, Subject subject, School school, int no) throws Exception{
 		System.out.println("▶ test.getStudent() = " +student.getNo());
