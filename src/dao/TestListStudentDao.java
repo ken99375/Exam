@@ -14,7 +14,10 @@ import bean.TestListStudent;
 
 
 public class TestListStudentDao extends Dao{
-	private String baseSql = "select * from test left join student on student.no = test.student_no where student_no =? and school_cd = ? and student.is_attend = true";
+	private String baseSql = "select test.student_no, test.subject_cd, test.school_cd, test.no, test.point, test.class_num "
+			+ "from test"
+			+ " left join student "
+			+ " on student.no = test.student_no where test.student_no = ? and test.school_cd = ? and student.is_attend = true";
 
 	// filterメソッドのSQL結果をまとめて処理するためのpostfilter
 	// studentDaoでもやっていた。
