@@ -36,6 +36,10 @@
 							<input class="w-25 btn btn-lg btn-primary" type="submit" name="login" value="進む"/>
 						</div>
 					</div>
+				<!-- ログインページへのリンク -->
+                <div class="my-2 text-end px-4">
+                    <a href="Login.action">戻る</a>
+                </div>
 				</div>
 			</form>
 		</section>
