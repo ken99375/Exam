@@ -63,7 +63,7 @@ public class DashBordExecuteAction extends Action{
 				barRanges.add(new int[]{0, 29});
 				barRanges.add(new int[]{30, 59});
 				barRanges.add(new int[]{60, 69});
-				barRanges.add(new int[]{70, 89});
+				barRanges.add(new int[]{70, 79});
 				barRanges.add(new int[]{80, 89});
 				barRanges.add(new int[]{90, 100});
 				// 円グラフで三分割
