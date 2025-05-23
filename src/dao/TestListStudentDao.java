@@ -19,6 +19,7 @@ public class TestListStudentDao extends Dao{
 			+ " left join student "
 			+ " on student.no = test.student_no where test.student_no = ? and test.school_cd = ? and student.is_attend = true";
 
+
 	// filterメソッドのSQL結果をまとめて処理するためのpostfilter
 	// studentDaoでもやっていた。
 	private List<TestListStudent> postFilter(ResultSet rSet) throws Exception{
