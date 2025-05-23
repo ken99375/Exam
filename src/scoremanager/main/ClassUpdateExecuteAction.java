@@ -28,7 +28,8 @@ public class ClassUpdateExecuteAction extends Action {
             System.out.println("school_cd: " + teacher.getSchool().getCd());
 
             ClassNumDao dao = new ClassNumDao();
-            ClassNum c = dao.get(classnum, teacher.getSchool());
+            ClassNum c = dao.getTrue(classnum, teacher.getSchool());
+            System.out.println(c);
             if (c == null) {
             	errors.put("dele", "クラスが存在しません");
             	req.setAttribute("errors", errors);

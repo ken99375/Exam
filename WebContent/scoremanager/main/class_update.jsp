@@ -25,7 +25,7 @@
                 <c:if test="${not empty errors['dele']}">
 					<div class="mb-3">
     					<label for="classnum" class="form-label">クラスコード</label>
-	    				<div>${param.classNum}</div>
+	    				<div>${param.classnum}</div>
 	    				<input type="hidden" class="form-control" id="classnum" name="classnum" value="${classInfo.classNum}" />
 						<div class="mt-2 text-warning">
 							 ${errors['dele']}
