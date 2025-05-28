@@ -205,7 +205,7 @@
 			          borderColor: "#4e73df",
 			          data: [
 			        	  <c:forEach var ="rc" items = "${barDashbord.distribution}" varStatus = "st">
-			        		'${rc.count}人'<c:if test = "${!st.last}">, </c:if>
+			        		'${rc.count}'<c:if test = "${!st.last}">, </c:if>
 			        	</c:forEach>
 			          ]
 			        }]
